@@ -1,0 +1,51 @@
+{
+    "strawberry": {
+        "hex": "#fcdede",
+        "hsl": "hsl(0, 83%, 93%)",
+        "alt": "hsl(0, 83%, 93%)",
+        "altText": "black",
+        "text": "CornflowerBlue"
+    },
+    "chestnut": {
+        "hex": "#efe1da",
+        "hsl": "hsl(20, 40%, 90%)",
+        "alt": "hsl(20, 40%, 90%)",
+        "text": "SlateBlue"
+    },
+    "gold": {
+        "hex": "#faf4cf",
+        "hsl": "hsl(52, 81%, 90%)",
+        "alt": "hsl(52, 81%, 90%)",
+        "text": "CornflowerBlue"
+    },
+    "limegreen": {
+        "hex": "#d9f5cb",
+        "hsl": "hsl(100, 68%, 88%)",
+        "alt": "hsl(100, 68%, 88%)",
+        "text": "RoyalBlue"
+    },
+    "mintgreen": {
+        "hex": "#cdf5d4",
+        "hsl": "hsl(131, 67%, 88%)",
+        "alt": "hsl(131, 67%, 88%)",
+        "text": "DodgerBlue"
+    },
+    "topaz": {
+        "hex": "#d1eeeb",
+        "hsl": "hsl(174, 46%, 88%)",
+        "alt": "hsl(174, 46%, 88%)",
+        "text": "DodgerBlue"
+    },
+    "sizzurp": {
+        "hex": "#dfdffa",
+        "hsl": "hsl(240, 73%, 93%)",
+        "alt": "hsl(240, 73%, 93%)",
+        "text": "CornflowerBlue"
+    },
+    "bubblegum": {
+        "hex": "#fadff4",
+        "hsl": "hsl(313, 73%, 93%)",
+        "alt": "hsl(313, 73%, 93%)",
+        "text": "CornflowerBlue"
+    }
+}
