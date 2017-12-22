@@ -1,8 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Row, Button, Icon, Pagination, Input } from 'react-materialize'
-import { getCatIds, setCards, setSalesPageNumber, getAllCattributes, setCheckboxes, setSearchValues, toggleSearchValue, setCardAnimation } from '../redux/actionCreators'
+
+import {
+    getCatIds,
+    setCards,
+    setSalesPageNumber,
+    getAllCattributes,
+    setCheckboxes,
+    setSearchValues,
+    toggleSearchValue,
+    setCardAnimation,
+    setGeneration,
+    setInitialLoad,
+    setSort
+} from '../redux/actionCreators'
+
 import ResultCard from './ResultCard'
+import GenerationSelect from './GenerationSelect'
 
 
 class Sale extends Component {
@@ -96,8 +111,14 @@ class Sale extends Component {
                 heading: 'Cooldown',
                 inputs: valuesSorted.cooldown,
                 inputType: 'radio'
+            },
+            {
+                icon: 'linear_scale',
+                heading: 'Type',
+                inputs: valuesSorted.ckType,
+                inputType: 'radio'
             }
-            
+
         ]
 
         searchInputData.forEach((category, index) => {
@@ -116,6 +137,31 @@ class Sale extends Component {
 
         })
 
+        let sort = (
+                <div className='col s12 m12 l12 xl12 ml-4 pl-4' style={{marginTop: '-25px', marginBottom: '-20px'}}>
+                    <Input s={2} type='select' label="" defaultValue='1' onChange={this.handleSort}>
+                        <option value={false}>Youngest</option>
+                        <option value='orderDirection=asc'>Oldest</option>
+                        <option value='orderBy=current_price&orderDirection=asc'>Cheapest</option>
+                        <option value='orderBy=current_price&orderDirection=desc'>Expensive</option>
+                    </Input>
+                </div>
+            
+        )
+
+        let sortHeading = <div className='col s12 m12 l12 xl12'><h5><Icon left={true} className='icon-margin' small>view_comfy</Icon>Sort</h5></div>
+        checkboxes.push(sortHeading)
+        checkboxes.push(sort)
+        let generationHeading = <div className='col s12 m12 l12 xl12'><h5><Icon left={true} className='icon-margin' small>line_style</Icon>Generation</h5></div>
+        checkboxes.push(generationHeading)
+
+        let generationSearch = (
+            <GenerationSelect />
+        )
+        checkboxes.push(generationSearch)
+
+
+        
         let searchButton = <div className='col s12 m12 l12 xl12'><Button className='mt-3 red lighten-2' value='1' onClick={this.search} waves='light'>Search</Button></div>
 
         checkboxes.push(searchButton)
@@ -127,7 +173,7 @@ class Sale extends Component {
     search(page) {
         console.log("true or false", (page % 1) > -1)
         this.resultsHeading.scrollIntoView()
-        // this.animatedElement.classList.add('bounceOutLeft')
+        
         this.props.dispatch(setCardAnimation('outro'))
 
         let searchText = []
@@ -152,7 +198,10 @@ class Sale extends Component {
             offset = null
             page = 1
         }
-        this.props.dispatch(getCatIds(offset, searchString))
+
+        let sort = this.props.sort
+
+        this.props.dispatch(getCatIds(offset, searchString, sort))
         this.props.dispatch(setSalesPageNumber(page))
 
     }
@@ -176,6 +225,13 @@ class Sale extends Component {
     }
 
 
+    handleSort = (e) => {
+        console.log("############ sort value #########", e.currentTarget.value)
+        this.props.dispatch(setSort(e.currentTarget.value))
+
+
+    }
+
     componentDidMount() {
         console.log(this.props.ckData)
         if (this.props.ckData.length === 0) {
@@ -193,6 +249,13 @@ class Sale extends Component {
 
         }
 
+
+    }
+
+    componentWillUnmount() {
+        if (this.props.initialLoad) {
+            this.props.dispatch(setInitialLoad())
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -215,9 +278,18 @@ class Sale extends Component {
             let cooldowns = ['fast', 'swift', 'snappy', 'brisk', 'plodding', 'slow', 'sluggish', 'catatonic']
 
             cooldowns.forEach((cooldown) => {
-                
+
                 searchValues.push({ text: cooldown, searchText: `cooldown:${cooldown}`, value: false, type: 'cooldown' })
             })
+
+            let nfe = ['normal', 'fancy', 'exclusive']
+
+            nfe.forEach((ckType) => {
+
+                searchValues.push({ text: ckType, searchText: `type:${ckType}`, value: false, type: 'ckType' })
+            })
+
+            searchValues.push({ text: 'generation', searchText: `gen:${this.props.generation}`, value: false, type: 'generation' })
 
             this.props.dispatch(setSearchValues(searchValues))
 
@@ -241,11 +313,19 @@ class Sale extends Component {
         }
 
         let results = addCommas(this.props.total)
+
+        let checkboxClass
+        if (this.props.initialLoad) {
+            checkboxClass = 'search-width animated fadeInDownBig'
+        } else {
+            checkboxClass = 'search-width'
+        }
+
         return (
             <div>
-                <h4 className='center-align page-heading animated fadeIn'><u>Sale</u></h4>
+                <h4 className='center-align page-heading'><u>Sale</u></h4>
                 {!this.props.isFetchingAllCattributes &&
-                    <Row className='search-width animated fadeIn'>
+                    <Row className={checkboxClass}>
                         {this.props.checkboxes}
                     </Row>
                 }
@@ -267,9 +347,11 @@ class Sale extends Component {
 
                 }
                 <div ref={(thisTag) => { this.resultsHeading = thisTag }}></div>
-                
-                <div style={{minHeight: '100vh'}}>
-                    <h5 className='ml-3 pt-2 animated fadeIn'>Results: {results}</h5>
+
+                <div style={{ minHeight: '100vh' }}>
+
+                    <h5 className='ml-3 pt-2'>Results: {results}</h5>
+
                     {this.props.total > 20 &&
                         <div className='mb-4 animated fadeIn' style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
                             <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.salesPageNumber} maxButtons={5} onSelect={this.search} /></span>
@@ -279,7 +361,7 @@ class Sale extends Component {
                     <div className='row' id='cardRow' ref={this.saveElement}>
                         {this.props.cards}
                     </div>
-                    
+
                     {this.props.total > 20 &&
                         <div className='mb-4 animated fadeIn' style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
                             <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.salesPageNumber} maxButtons={5} onSelect={this.search} /></span>
@@ -288,7 +370,7 @@ class Sale extends Component {
 
                     }
                 </div>
-                
+
 
             </div>
         )
@@ -311,7 +393,10 @@ function mapStateToProps(appState) {
         checkboxes: appState.salesPage.checkboxes,
         searchValues: appState.salesPage.searchValues,
         total: appState.salesPage.total,
-        cardAnimation: appState.salesPage.cardAnimation
+        cardAnimation: appState.salesPage.cardAnimation,
+        generation: appState.salesPage.generation,
+        initialLoad: appState.salesPage.initialLoad,
+        sort: appState.salesPage.sort
 
     }
 

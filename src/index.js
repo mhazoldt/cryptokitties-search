@@ -26,7 +26,12 @@ let initialState = {
         checkboxes: [],
         searchValues: [],
         total: 0,
-        cardAnimation: 'intro'
+        cardAnimation: 'intro',
+        generationEnabled: false,
+        generation: 0,
+        initialLoad: true,
+        initialToggle: true,
+        sort: false
     }
 
 

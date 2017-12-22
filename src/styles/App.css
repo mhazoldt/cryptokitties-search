@@ -40,6 +40,18 @@
   width: 100%;
 }
 
+.btn.generation-number {
+  /* pointer-events:none; */
+  color: #9e9e9e;
+  /* border: 3px solid #9e9e9e; */
+}
+
+.gernation-search {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  
+}
 
 /* materialize changes */
 

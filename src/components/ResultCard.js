@@ -29,6 +29,7 @@ class ResultCard extends Component {
 
         let microEther = ''
         let formattedTime
+        let displayPrice
 
         if (kitty.auction.id) {
             let end_time = parseInt(kitty.auction.end_time)
@@ -39,8 +40,17 @@ class ResultCard extends Component {
             let remaining_minutes = remaining_seconds / 60
             let remaining_hours = remaining_minutes / 60
 
+            let addCommas = (number) => {
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
             if (remaining_hours < 0) {
                 formattedTime = ''
+            } else if (remaining_hours > 24) {
+                let remaining_day = remaining_hours / 24
+                let hours_remainder = remaining_hours % 24
+                formattedTime = addCommas(parseInt(remaining_day)) + 'd ' + parseInt(hours_remainder).toString() + 'h'
+
             } else {
                 formattedTime = parseInt(remaining_hours).toString() + 'h'
             }
@@ -48,19 +58,51 @@ class ResultCard extends Component {
 
 
             let current_price = kitty.auction.current_price
-            let significant_price = current_price / 100000000000000
-            significant_price = parseInt(significant_price)
-            microEther = significant_price * 100
 
-            let addCommas = (number) => {
-                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            let petaEther_price = current_price / 1000000000000000000000000000000000
+            let teraEther_price = current_price / 1000000000000000000000000000000
+            let gigaEther_price = current_price / 1000000000000000000000000000
+            let megaEther_price = current_price / 1000000000000000000000000
+            let ether_price = current_price / 1000000000000000000
+            let microEther_price = current_price / 1000000000000
+            let significant_price = current_price / 100000000000000
+            
+            petaEther_price = parseInt(petaEther_price)
+            teraEther_price = parseInt(teraEther_price)
+            gigaEther_price = parseInt(gigaEther_price)
+            megaEther_price = parseInt(megaEther_price)
+            ether_price = parseInt(ether_price)
+            microEther_price = parseInt(microEther_price)
+
+            console.log("price_data", current_price)
+            console.log("petaEther", petaEther_price)
+            console.log("teraEther", teraEther_price)
+            console.log("gigaEther", gigaEther_price)
+            console.log("megaEther", megaEther_price)
+            console.log("ether_price", ether_price)
+            console.log("mircoEther", microEther_price)
+
+
+            
+
+
+            if(gigaEther_price > 999999) {
+                displayPrice = addCommas(petaEther_price) + 'p'
+                console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
+            } else if(megaEther_price > 999999) {
+                displayPrice = addCommas(gigaEther_price) + 'g'
+                console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
+            } else if (ether_price > 999999) {
+                displayPrice = addCommas(megaEther_price) + 'm'
+                console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
+            } else if (microEther_price > 999999) {
+                displayPrice = addCommas(ether_price) + 'eth'
+                console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
+            } else {
+                displayPrice = addCommas(microEther_price) + 'μ'
             }
 
-            microEther = addCommas(microEther) + 'μ'
-
-            significant_price = significant_price / 10000
-
-        }
+        } 
 
 
         let cardHeader = (
@@ -73,7 +115,7 @@ class ResultCard extends Component {
                     <div style={{ alignSelf: 'flex-end', width: '100%' }}>
                         <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
 
-                            <span className='image-text' style={{ color: cardTextColor }}>{microEther}</span>
+                            <span className='image-text' style={{ color: cardTextColor }}>{displayPrice}</span>
                             <span className='image-text' style={{ color: cardTextColor }}>{formattedTime}</span>
                         </div>
                     </div>

@@ -55,11 +55,30 @@ function fetchCompleteAllCattributes(allCattributes) {
     return { type: 'FETCH_COMPLETE_ALL_CATTRIBUTES', allCattributes: allCattributes }
 }
 
+function setGeneration(change) {
+    return { type: 'SET_GENERATION', change: change }
+}
+
+function toggleGeneration() {
+    return { type: 'TOGGLE_GENERATION' }
+}
+
+function setInitialLoad() {
+    return { type: 'SET_INITIAL_LOAD' }
+}
+
+function setInitialToggle() {
+    return { type: 'SET_INITIAL_TOGGLE' }
+}
+
+function setSort(order) {
+    return { type: 'SET_SORT', order: order }
+}
 
 // thunks
 
 
-function getCatIds(offset, searchText) {
+function getCatIds(offset, searchText, sort) {
     // Thunk middleware knows how to handle functions.
     // It passes the dispatch method as an argument to the function,
     // thus making it able to dispatch actions itself.
@@ -84,6 +103,10 @@ function getCatIds(offset, searchText) {
 
         if(searchText) {
             url = url + `&search=${searchText}`
+        }
+
+        if(sort) {
+            url = url + `&${sort}`
         }
 
         console.log(url)
@@ -207,4 +230,19 @@ function getAllCattributes() {
 }
 
 
-module.exports = { getCatIds, setCards, setSalesPageNumber, getAllCattributes, setCheckboxes, toggleSearchValue, setSearchValues, setCardAnimation }
+module.exports = { 
+    getCatIds,
+    setCards,
+    setSalesPageNumber,
+    getAllCattributes,
+    setCheckboxes,
+    toggleSearchValue,
+    setSearchValues,
+    setCardAnimation,
+    setGeneration,
+    toggleGeneration,
+    setInitialLoad,
+    setInitialToggle,
+    setSort
+
+}

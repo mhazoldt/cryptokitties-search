@@ -103,6 +103,96 @@ function fetchReducer(state = [], action) {
             
             return newState
         }
+        case 'SET_SORT': {
+            let newState = Object.assign({}, state, {
+                sort: action.order
+
+            })
+            
+            return newState
+        }
+        case 'SET_GENERATION': {
+            let update
+
+            if (action.change === 'increase') {
+                update = state.generation + 1
+    
+            } else if (action.change === 'decrease') {
+                update = state.generation - 1
+    
+            } else {
+                
+                update = state.generation
+    
+            }
+            
+            let curValues = state.searchValues
+            let newValues = []
+
+            newValues = curValues.map((curCheckboxValue) => {
+                if (curCheckboxValue.type === 'generation') {
+                    curCheckboxValue.searchText = `gen:${update}`
+                    return curCheckboxValue
+                } else {
+                    return curCheckboxValue
+                }
+            })
+
+            let newState = Object.assign({}, state, {
+                generation: update,
+                searchValues: newValues
+                
+            })
+            
+            return newState
+
+
+
+
+
+
+            
+            return newState
+        }
+        case 'TOGGLE_GENERATION': {
+
+
+            let curValues = state.searchValues
+            let newValues = []
+
+            newValues = curValues.map((curCheckboxValue) => {
+                if (curCheckboxValue.type === 'generation') {
+                    curCheckboxValue.value = !curCheckboxValue.value
+                    return curCheckboxValue
+                } else {
+                    return curCheckboxValue
+                }
+            })
+
+            let newState = Object.assign({}, state, {
+                generationEnabled: !state.generationEnabled,
+                searchValues: newValues
+                
+            })
+            
+            return newState
+        }
+        case 'SET_INITIAL_LOAD': {
+            let newState = Object.assign({}, state, {
+                initialLoad: false
+                
+            })
+            
+            return newState
+        }
+        case 'SET_INITIAL_TOGGLE': {
+            let newState = Object.assign({}, state, {
+                initialToggle: false
+                
+            })
+            
+            return newState
+        }
         case 'STARTING_FETCH': {
             let newState = Object.assign({}, state, {
                 isFetching: true
