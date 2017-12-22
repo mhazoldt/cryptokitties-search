@@ -90,7 +90,14 @@ class Sale extends Component {
                 heading: 'Mouth',
                 inputs: valuesSorted.mouth,
                 inputType: 'radio'
+            },
+            {
+                icon: 'query_builder',
+                heading: 'Cooldown',
+                inputs: valuesSorted.cooldown,
+                inputType: 'radio'
             }
+            
         ]
 
         searchInputData.forEach((category, index) => {
@@ -98,10 +105,10 @@ class Sale extends Component {
             checkboxes.push(heading)
             category.inputs.forEach((input, checkboxIndex) => {
 
-                let nextInput = <div className='col checkbox-col'><Input name={input.type} type={category.inputType} onClick={this.handleCheckbox} value={input.text} label={input.text} /></div>
+                let nextInput = <div className='col checkbox-col'><Input name={input.type} type={category.inputType} onClick={this.handleCheckbox} value={input.searchText} label={input.text} /></div>
 
                 if (input.value) {
-                    nextInput = <div className='col checkbox-col'><Input name={input.type} type={category.inputType} onClick={this.handleCheckbox} value={input.text} label={input.text} checked /></div>
+                    nextInput = <div className='col checkbox-col'><Input name={input.type} type={category.inputType} onClick={this.handleCheckbox} value={input.searchText} label={input.text} checked /></div>
 
                 }
                 checkboxes.push(nextInput)
@@ -130,7 +137,7 @@ class Sale extends Component {
         console.log("############### searchValues", this.props.searchValues)
         checkboxes.forEach((checkbox) => {
             if (checkbox.value) {
-                searchText.push(checkbox.text)
+                searchText.push(checkbox.searchText)
             }
         })
 
@@ -202,7 +209,14 @@ class Sale extends Component {
 
             nextProps.allCattributes.forEach((cattribute) => {
                 // take each cattribute and add it to an array to track input selection in redux
-                searchValues.push({ text: cattribute.description, value: false, type: cattribute.type })
+                searchValues.push({ text: cattribute.description, searchText: cattribute.description, value: false, type: cattribute.type })
+            })
+
+            let cooldowns = ['fast', 'swift', 'snappy', 'brisk', 'plodding', 'slow', 'sluggish', 'catatonic']
+
+            cooldowns.forEach((cooldown) => {
+                
+                searchValues.push({ text: cooldown, searchText: `cooldown:${cooldown}`, value: false, type: 'cooldown' })
             })
 
             this.props.dispatch(setSearchValues(searchValues))

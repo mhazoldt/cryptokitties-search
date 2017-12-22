@@ -76,7 +76,7 @@ function fetchReducer(state = [], action) {
             let newValues = []
 
             newValues = curValues.map((curCheckboxValue) => {
-                if (curCheckboxValue.text === action.searchText) {
+                if (curCheckboxValue.searchText === action.searchText) {
                     curCheckboxValue.value = !curCheckboxValue.value
                     return curCheckboxValue
                 } else if (curCheckboxValue.type === action.valueType && action.inputType != 'checkbox') {
