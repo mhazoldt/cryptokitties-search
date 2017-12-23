@@ -5,7 +5,7 @@ import { Row, Button, Icon, Pagination, Input } from 'react-materialize'
 import {
     getCatIds,
     setCards,
-    setSalesPageNumber,
+    setAllPageNumber,
     getAllCattributes,
     setCheckboxes,
     setSearchValues,
@@ -18,7 +18,7 @@ import {
     setSort,
     setActive,
     setResultsChanged
-} from '../redux/sale/actionCreators'
+} from '../redux/all/actionCreators'
 
 import ResultCard from './ResultCard'
 import GenerationSelect from './GenerationSelect'
@@ -26,7 +26,7 @@ import Sort from './Sort'
 import Results from './Results'
 
 
-class Sale extends Component {
+class All extends Component {
     constructor(props) {
         super(props);
         this.search = this.search.bind(this);
@@ -137,7 +137,6 @@ class Sale extends Component {
         checkboxes.push(sortHeading)
 
         let sort = <Sort handleSort={this.handleSort} />
-
         checkboxes.push(sort)
 
         let generationHeading = <div className='col s12 m12 l12 xl12'><h5><Icon left={true} className='icon-margin' small>line_style</Icon>Generation</h5></div>
@@ -189,7 +188,7 @@ class Sale extends Component {
         let sort = this.props.sort
 
         this.props.dispatch(getCatIds(offset, searchString, sort))
-        this.props.dispatch(setSalesPageNumber(page))
+        this.props.dispatch(setAllPageNumber(page))
 
     }
 
@@ -220,7 +219,7 @@ class Sale extends Component {
     }
 
     componentWillMount() {
-        this.props.dispatch(setActive('sale'))
+        this.props.dispatch(setActive('all'))
     }
 
 
@@ -316,7 +315,7 @@ class Sale extends Component {
 
         return (
             <div>
-                <h4 className='center-align page-heading animated flipInY'><u>Sale</u></h4>
+                <h4 className='center-align page-heading animated flipInY'><u>All</u></h4>
                 {!this.props.isFetchingAllCattributes &&
                     <Row className={checkboxClass}>
                         {this.props.checkboxes}
@@ -349,7 +348,7 @@ class Sale extends Component {
 
                     {this.props.total > 20 &&
                         <div className='mb-4 animated fadeIn' style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
-                            <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.salesPageNumber} maxButtons={5} onSelect={this.search} /></span>
+                            <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.allPageNumber} maxButtons={5} onSelect={this.search} /></span>
                         </div>
                     }
 
@@ -359,7 +358,7 @@ class Sale extends Component {
 
                     {this.props.total > 20 &&
                         <div className='mb-4 animated fadeIn' style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
-                            <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.salesPageNumber} maxButtons={5} onSelect={this.search} /></span>
+                            <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.allPageNumber} maxButtons={5} onSelect={this.search} /></span>
 
                         </div>
 
@@ -376,25 +375,25 @@ class Sale extends Component {
 
 function mapStateToProps(appState) {
     return {
-        isFetchingSalesIds: appState.salesPage.isFetchingSalesIds,
-        salesIds: appState.salesPage.salesIds,
-        isFetchingCkData: appState.salesPage.isFetchingCkData,
-        ckData: appState.salesPage.ckData,
-        cards: appState.salesPage.cards,
-        salesPageNumber: appState.salesPage.salesPageNumber,
-        isFetching: appState.salesPage.isFetching,
-        isFetchingAllCattributes: appState.salesPage.isFetchingAllCattributes,
-        allCattributes: appState.salesPage.allCattributes,
-        checkboxes: appState.salesPage.checkboxes,
-        searchValues: appState.salesPage.searchValues,
-        total: appState.salesPage.total,
-        cardAnimation: appState.salesPage.cardAnimation,
-        generation: appState.salesPage.generation,
-        initialLoad: appState.salesPage.initialLoad,
-        sort: appState.salesPage.sort
+        isFetchingAllIds: appState.allPage.isFetchingAllIds,
+        allIds: appState.allPage.allIds,
+        isFetchingCkData: appState.allPage.isFetchingCkData,
+        ckData: appState.allPage.ckData,
+        cards: appState.allPage.cards,
+        allPageNumber: appState.allPage.allPageNumber,
+        isFetching: appState.allPage.isFetching,
+        isFetchingAllCattributes: appState.allPage.isFetchingAllCattributes,
+        allCattributes: appState.allPage.allCattributes,
+        checkboxes: appState.allPage.checkboxes,
+        searchValues: appState.allPage.searchValues,
+        total: appState.allPage.total,
+        cardAnimation: appState.allPage.cardAnimation,
+        generation: appState.allPage.generation,
+        initialLoad: appState.allPage.initialLoad,
+        sort: appState.allPage.sort
 
     }
 
 }
 
-export default connect(mapStateToProps)(Sale);
+export default connect(mapStateToProps)(All);

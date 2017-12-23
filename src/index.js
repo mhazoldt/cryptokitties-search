@@ -31,9 +31,54 @@ let initialState = {
         generation: 0,
         initialLoad: true,
         initialToggle: true,
-        sort: false
+        sort: false,
+        active: false,
+        resultsChanged: false
+    },
+    sirePage: {
+        isFetchingSireIds: false,
+        sireIds: [],
+        isFetchingCkData: false,
+        ckData: [],
+        cards: [],
+        sirePageNumber: 1,
+        isFetching: false,
+        allCattributes: [],
+        isFetchingAllCattributes: false,
+        checkboxes: [],
+        searchValues: [],
+        total: 0,
+        cardAnimation: 'intro',
+        generationEnabled: false,
+        generation: 0,
+        initialLoad: true,
+        initialToggle: true,
+        sort: false,
+        active: false,
+        resultsChanged: false
+    },
+    allPage: {
+        isFetchingAllIds: false,
+        allIds: [],
+        isFetchingCkData: false,
+        ckData: [],
+        cards: [],
+        allPageNumber: 1,
+        isFetching: false,
+        allCattributes: [],
+        isFetchingAllCattributes: false,
+        checkboxes: [],
+        searchValues: [],
+        total: 0,
+        cardAnimation: 'intro',
+        generationEnabled: false,
+        generation: 0,
+        initialLoad: true,
+        initialToggle: true,
+        sort: false,
+        active: false,
+        resultsChanged: false
     }
-
 
 }
 

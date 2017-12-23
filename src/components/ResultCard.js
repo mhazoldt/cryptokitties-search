@@ -82,31 +82,42 @@ class ResultCard extends Component {
             console.log("ether_price", ether_price)
             console.log("mircoEther", microEther_price)
 
+            let priceIcon
 
-            
-
+            if(kitty.auction.type === 'sale') {
+                priceIcon = 'local_offer'
+            } else if(kitty.auction.type === 'sire') {
+                priceIcon = 'child_friendly'
+            }
 
             if(gigaEther_price > 999999) {
-                displayPrice = addCommas(petaEther_price) + 'p'
+                displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(petaEther_price) + 'p'}</span>
                 console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
             } else if(megaEther_price > 999999) {
-                displayPrice = addCommas(gigaEther_price) + 'g'
+                displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(gigaEther_price) + 'g'}</span>
                 console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
             } else if (ether_price > 999999) {
-                displayPrice = addCommas(megaEther_price) + 'm'
+                displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(megaEther_price) + 'm'}</span>
                 console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
             } else if (microEther_price > 999999) {
-                displayPrice = addCommas(ether_price) + 'eth'
+                displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(ether_price) + 'eth'}</span>
                 console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
             } else {
-                displayPrice = addCommas(microEther_price) + 'μ'
+                displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(microEther_price) + 'μ'}</span>
             }
 
         } 
+        
+        let image_url
 
+        if (kitty.image_url === null && kitty.generation === 0) {
+            image_url = 'https://storage.googleapis.com/ck-kitty-image/0x06012c8cf97bead5deae237070f9587f8e7a266d/1.png'
+        } else {
+            image_url = kitty.image_url
+        }
 
         let cardHeader = (
-            <CardTitle reveal image={kitty.image_url} style={{ background: kittyBackground }}>
+            <CardTitle reveal image={image_url} style={{ background: kittyBackground }}>
                 <div className='image-text-positioning activator' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div className='truncate name-font' style={{ width: '100%', color: cardTextColor }}>
                         {kitty.name}
@@ -230,11 +241,19 @@ class ResultCard extends Component {
 
 
 function mapStateToProps(appState) {
-    return {
-        cardAnimation: appState.salesPage.cardAnimation
-
-    }
-
+    if (appState.salesPage.active  === 'sale') {
+        return {
+            cardAnimation: appState.salesPage.cardAnimation
+        }
+    } else if (appState.sirePage.active  === 'sire') {
+        return {
+            cardAnimation: appState.sirePage.cardAnimation
+        }
+    } else if (appState.allPage.active  === 'all') {
+        return {
+            cardAnimation: appState.allPage.cardAnimation
+        }
+    } 
 }
 
 

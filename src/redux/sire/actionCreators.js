@@ -1,78 +1,86 @@
 
-function startingFetchSalesIds() {
-    return { type: 'STARTING_FETCH_SALES_IDS' }
+function startingFetchSireIds() {
+    return { type: 'STARTING_FETCH_SIRE_IDS' }
 }
 
-function fetchCompleteSalesIds(ids, total) {
-    return { type: 'FETCH_COMPLETE_SALES_IDS', ids: ids, total: total }
+function fetchCompleteSireIds(ids, total) {
+    return { type: 'FETCH_COMPLETE_SIRE_IDS', ids: ids, total: total }
 }
 
 function startingFetchCkData() {
-    return { type: 'STARTING_FETCH_CK_DATA' }
+    return { type: 'STARTING_FETCH_CK_DATA_SIRE' }
 }
 
 function fetchCompleteCkData(results) {
-    return { type: 'FETCH_COMPLETE_CK_DATA', results: results }
+    return { type: 'FETCH_COMPLETE_CK_DATA_SIRE', results: results }
 }
 
 function startingFetch() {
-    return { type: 'STARTING_FETCH' }
+    return { type: 'STARTING_FETCH_SIRE' }
 }
 
 function fetchComplete() {
-    return { type: 'FETCH_COMPLETE' }
+    return { type: 'FETCH_COMPLETE_SIRE' }
 }
 
 function setCards(cards) {
-    return { type: 'SET_CARDS', cards: cards }
+    return { type: 'SET_CARDS_SIRE', cards: cards }
 }
 
 function setCheckboxes(checkboxes) {
-    return { type: 'SET_CHECKBOXES', checkboxes: checkboxes }
+    return { type: 'SET_CHECKBOXES_SIRE', checkboxes: checkboxes }
 }
 
 function toggleSearchValue(searchText, valueType, inputType) {
-    return { type: 'TOGGLE_SEARCH_VALUE', searchText: searchText, valueType: valueType, inputType: inputType }
+    return { type: 'TOGGLE_SEARCH_VALUE_SIRE', searchText: searchText, valueType: valueType, inputType: inputType }
 }
 
 function setSearchValues(searchValues) {
-    return { type: 'SET_SEARCH_VALUES', searchValues: searchValues }
+    return { type: 'SET_SEARCH_VALUES_SIRE', searchValues: searchValues }
 }
 
-function setSalesPageNumber(page) {
-    return { type: 'SET_SALES_PAGE_NUMBER', page: page }
+function setSirePageNumber(page) {
+    return { type: 'SET_SIRE_PAGE_NUMBER', page: page }
 }
 
 function setCardAnimation(animation) {
-    return { type: 'SET_CARD_ANIMATION', animation: animation }
+    return { type: 'SET_CARD_ANIMATION_SIRE', animation: animation }
 }
 
 function startingFetchAllCattributes() {
-    return { type: 'STARTING_FETCH_ALL_CATTRIBUTES' }
+    return { type: 'STARTING_FETCH_ALL_CATTRIBUTES_SIRE' }
 }
 
 function fetchCompleteAllCattributes(allCattributes) {
-    return { type: 'FETCH_COMPLETE_ALL_CATTRIBUTES', allCattributes: allCattributes }
+    return { type: 'FETCH_COMPLETE_ALL_CATTRIBUTES_SIRE', allCattributes: allCattributes }
 }
 
 function setGeneration(change) {
-    return { type: 'SET_GENERATION', change: change }
+    return { type: 'SET_GENERATION_SIRE', change: change }
 }
 
 function toggleGeneration() {
-    return { type: 'TOGGLE_GENERATION' }
+    return { type: 'TOGGLE_GENERATION_SIRE' }
 }
 
 function setInitialLoad() {
-    return { type: 'SET_INITIAL_LOAD' }
+    return { type: 'SET_INITIAL_LOAD_SIRE' }
 }
 
 function setInitialToggle() {
-    return { type: 'SET_INITIAL_TOGGLE' }
+    return { type: 'SET_INITIAL_TOGGLE_SIRE' }
 }
 
 function setSort(order) {
-    return { type: 'SET_SORT', order: order }
+    return { type: 'SET_SORT_SIRE', order: order }
+}
+
+function setActive(active) {
+    return { type: 'SET_ACTIVE', active: active }
+}
+
+function setResultsChanged(changed) {
+    return { type: 'SET_RESULTS_CHANGED_SIRE', changed: changed }
 }
 
 // thunks
@@ -88,7 +96,7 @@ function getCatIds(offset, searchText, sort) {
         // that the API call is starting.
 
         dispatch(startingFetch())
-        dispatch(startingFetchSalesIds())
+        dispatch(startingFetchSireIds())
 
         // The function called by the thunk middleware can return a value,
         // that is passed on as the return value of the dispatch method.
@@ -96,7 +104,7 @@ function getCatIds(offset, searchText, sort) {
         // In this case, we return a promise to wait for.
         // This is not required by thunk middleware, but it is convenient for us.
 
-        let url = 'https://api.cryptokitties.co/auctions?status=open&limit=20'
+        let url = 'https://api.cryptokitties.co/auctions?status=open&limit=20&type=sire'
         if(offset) {
             url = url + `&offset=${offset}`
         }
@@ -132,7 +140,7 @@ function getCatIds(offset, searchText, sort) {
 
                 let total = j.total
 
-                dispatch(fetchCompleteSalesIds(ids, total))
+                dispatch(fetchCompleteSireIds(ids, total))
                 dispatch(getCkData(ids))
             })
     }
@@ -233,7 +241,7 @@ function getAllCattributes() {
 module.exports = { 
     getCatIds,
     setCards,
-    setSalesPageNumber,
+    setSirePageNumber,
     getAllCattributes,
     setCheckboxes,
     toggleSearchValue,
@@ -243,6 +251,8 @@ module.exports = {
     toggleGeneration,
     setInitialLoad,
     setInitialToggle,
-    setSort
+    setSort,
+    setActive,
+    setResultsChanged
 
 }

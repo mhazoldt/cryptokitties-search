@@ -5,7 +5,7 @@ import { Row, Button, Icon, Pagination, Input } from 'react-materialize'
 import {
     getCatIds,
     setCards,
-    setSalesPageNumber,
+    setSirePageNumber,
     getAllCattributes,
     setCheckboxes,
     setSearchValues,
@@ -18,7 +18,7 @@ import {
     setSort,
     setActive,
     setResultsChanged
-} from '../redux/sale/actionCreators'
+} from '../redux/sire/actionCreators'
 
 import ResultCard from './ResultCard'
 import GenerationSelect from './GenerationSelect'
@@ -26,11 +26,10 @@ import Sort from './Sort'
 import Results from './Results'
 
 
-class Sale extends Component {
+class Sire extends Component {
     constructor(props) {
         super(props);
         this.search = this.search.bind(this);
-
     }
 
     generateCards(kittyData) {
@@ -137,7 +136,6 @@ class Sale extends Component {
         checkboxes.push(sortHeading)
 
         let sort = <Sort handleSort={this.handleSort} />
-
         checkboxes.push(sort)
 
         let generationHeading = <div className='col s12 m12 l12 xl12'><h5><Icon left={true} className='icon-margin' small>line_style</Icon>Generation</h5></div>
@@ -189,7 +187,7 @@ class Sale extends Component {
         let sort = this.props.sort
 
         this.props.dispatch(getCatIds(offset, searchString, sort))
-        this.props.dispatch(setSalesPageNumber(page))
+        this.props.dispatch(setSirePageNumber(page))
 
     }
 
@@ -220,9 +218,8 @@ class Sale extends Component {
     }
 
     componentWillMount() {
-        this.props.dispatch(setActive('sale'))
+        this.props.dispatch(setActive('sire'))
     }
-
 
     componentDidMount() {
         console.log(this.props.ckData)
@@ -316,7 +313,7 @@ class Sale extends Component {
 
         return (
             <div>
-                <h4 className='center-align page-heading animated flipInY'><u>Sale</u></h4>
+                <h4 className='center-align page-heading animated flipInY'><u>Sire</u></h4>
                 {!this.props.isFetchingAllCattributes &&
                     <Row className={checkboxClass}>
                         {this.props.checkboxes}
@@ -349,7 +346,7 @@ class Sale extends Component {
 
                     {this.props.total > 20 &&
                         <div className='mb-4 animated fadeIn' style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
-                            <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.salesPageNumber} maxButtons={5} onSelect={this.search} /></span>
+                            <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.sirePageNumber} maxButtons={5} onSelect={this.search} /></span>
                         </div>
                     }
 
@@ -359,7 +356,7 @@ class Sale extends Component {
 
                     {this.props.total > 20 &&
                         <div className='mb-4 animated fadeIn' style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
-                            <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.salesPageNumber} maxButtons={5} onSelect={this.search} /></span>
+                            <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.sirePageNumber} maxButtons={5} onSelect={this.search} /></span>
 
                         </div>
 
@@ -376,25 +373,25 @@ class Sale extends Component {
 
 function mapStateToProps(appState) {
     return {
-        isFetchingSalesIds: appState.salesPage.isFetchingSalesIds,
-        salesIds: appState.salesPage.salesIds,
-        isFetchingCkData: appState.salesPage.isFetchingCkData,
-        ckData: appState.salesPage.ckData,
-        cards: appState.salesPage.cards,
-        salesPageNumber: appState.salesPage.salesPageNumber,
-        isFetching: appState.salesPage.isFetching,
-        isFetchingAllCattributes: appState.salesPage.isFetchingAllCattributes,
-        allCattributes: appState.salesPage.allCattributes,
-        checkboxes: appState.salesPage.checkboxes,
-        searchValues: appState.salesPage.searchValues,
-        total: appState.salesPage.total,
-        cardAnimation: appState.salesPage.cardAnimation,
-        generation: appState.salesPage.generation,
-        initialLoad: appState.salesPage.initialLoad,
-        sort: appState.salesPage.sort
+        isFetchingSireIds: appState.sirePage.isFetchingSalesIds,
+        sireIds: appState.sirePage.sireIds,
+        isFetchingCkData: appState.sirePage.isFetchingCkData,
+        ckData: appState.sirePage.ckData,
+        cards: appState.sirePage.cards,
+        sirePageNumber: appState.sirePage.salesPageNumber,
+        isFetching: appState.sirePage.isFetching,
+        isFetchingAllCattributes: appState.sirePage.isFetchingAllCattributes,
+        allCattributes: appState.sirePage.allCattributes,
+        checkboxes: appState.sirePage.checkboxes,
+        searchValues: appState.sirePage.searchValues,
+        total: appState.sirePage.total,
+        cardAnimation: appState.sirePage.cardAnimation,
+        generation: appState.sirePage.generation,
+        initialLoad: appState.sirePage.initialLoad,
+        sort: appState.sirePage.sort
 
     }
 
 }
 
-export default connect(mapStateToProps)(Sale);
+export default connect(mapStateToProps)(Sire);
