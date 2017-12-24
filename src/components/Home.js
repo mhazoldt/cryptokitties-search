@@ -1,13 +1,18 @@
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Icon } from 'react-materialize'
 
 class Home extends Component {
 
-
-
     render() {
+
+        let price
+        if(this.props.ethPrice) {
+            price = `$${parseInt(this.props.ethPrice)}`
+        }
+
 
         return (
             <div class="row">
@@ -24,7 +29,7 @@ class Home extends Component {
                             </p>
 
                             <p className='mt-3'>
-                                Prices are listed in different denominations of Ether. microEther, Ether, megaEther, gigaEther, and petaEther.
+                                The 'reveal' on some cards (desktop only) show price in different denominations of Ether. microEther, Ether, megaEther, gigaEther, and petaEther.
                             </p>
                             <p className='mt-2'>
                                 1,000,000μ = 1 Eth
@@ -47,6 +52,9 @@ class Home extends Component {
                             </p>
                             <p className='mt-2'>
                                 The link on these cards will still work.
+                            </p>
+                            <p className='mt-4'>
+                                Current price of Eth: {price}
                             </p>
 
                         </div>
@@ -100,4 +108,12 @@ class Home extends Component {
     }
 }
 
-export default Home;
+
+function mapStateToProps(appState) {
+    return {
+        ethPrice: appState.baseLayout.ethPrice
+    }
+}
+
+
+export default connect(mapStateToProps)(Home)

@@ -78,6 +78,9 @@ let initialState = {
         sort: false,
         active: false,
         resultsChanged: false
+    },
+    baseLayout: {
+        ethPrice: null
     }
 
 }

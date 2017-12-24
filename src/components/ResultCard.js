@@ -30,6 +30,7 @@ class ResultCard extends Component {
         let microEther = ''
         let formattedTime
         let displayPrice
+        let ethPrice
 
         if (kitty.auction.id) {
             let end_time = parseInt(kitty.auction.end_time)
@@ -67,6 +68,9 @@ class ResultCard extends Component {
             let microEther_price = current_price / 1000000000000
             let significant_price = current_price / 100000000000000
             
+
+            let priceUSD = '$' + addCommas(parseInt(ether_price * this.props.ethPrice))
+
             petaEther_price = parseInt(petaEther_price)
             teraEther_price = parseInt(teraEther_price)
             gigaEther_price = parseInt(gigaEther_price)
@@ -75,6 +79,7 @@ class ResultCard extends Component {
             microEther_price = parseInt(microEther_price)
 
             console.log("price_data", current_price)
+            console.log("significant_price", significant_price)
             console.log("petaEther", petaEther_price)
             console.log("teraEther", teraEther_price)
             console.log("gigaEther", gigaEther_price)
@@ -83,6 +88,7 @@ class ResultCard extends Component {
             console.log("mircoEther", microEther_price)
 
             let priceIcon
+            
 
             if(kitty.auction.type === 'sale') {
                 priceIcon = 'local_offer'
@@ -100,10 +106,12 @@ class ResultCard extends Component {
                 displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(megaEther_price) + 'm'}</span>
                 console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
             } else if (microEther_price > 999999) {
-                displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(ether_price) + 'eth'}</span>
+                ethPrice = 'price: ' + addCommas(ether_price) + 'eth'
+                displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{priceUSD}</span>
                 console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
             } else {
-                displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(microEther_price) + 'μ'}</span>
+                ethPrice = 'price: ' + addCommas(microEther_price) + 'μ'
+                displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{priceUSD}</span>
             }
 
         } 
@@ -196,7 +204,7 @@ class ResultCard extends Component {
 
                 {this.props.cardAnimation === 'intro' &&
 
-                    <Card className='hoverable animated bounceInRight' style={{ backgroundColor: kittyBackground }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p>created: {created_at}</div>} key={kitty.id}>
+                    <Card className='hoverable animated bounceInRight' style={{ backgroundColor: kittyBackground }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p><p>created: {created_at}</p><p>{ethPrice}</p></div>} key={kitty.id}>
                         <Collection>
                             <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'>{cat.color1}</span></CollectionItem>
                             <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'> {cat.color2} </span></CollectionItem>
@@ -243,15 +251,18 @@ class ResultCard extends Component {
 function mapStateToProps(appState) {
     if (appState.salesPage.active  === 'sale') {
         return {
-            cardAnimation: appState.salesPage.cardAnimation
+            cardAnimation: appState.salesPage.cardAnimation,
+            ethPrice: appState.baseLayout.ethPrice
         }
     } else if (appState.sirePage.active  === 'sire') {
         return {
-            cardAnimation: appState.sirePage.cardAnimation
+            cardAnimation: appState.sirePage.cardAnimation,
+            ethPrice: appState.baseLayout.ethPrice
         }
     } else if (appState.allPage.active  === 'all') {
         return {
-            cardAnimation: appState.allPage.cardAnimation
+            cardAnimation: appState.allPage.cardAnimation,
+            ethPrice: appState.baseLayout.ethPrice
         }
     } 
 }

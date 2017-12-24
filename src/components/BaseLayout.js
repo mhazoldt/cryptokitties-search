@@ -1,8 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import Header from './Header';
 import PageFooter from './PageFooter';
+import { withRouter } from 'react-router'
+
+
+import {
+    getCatIds,
+    getAllCattributes,
+    setSearchValues,
+    getEthPrice
+} from '../redux/BaseLayout/actionCreators'
+
+
+
 
 class BaseLayout extends Component {
+
+    componentWillMount() {
+        this.props.dispatch(getEthPrice())
+    }
+
     render() {
         return (
             <div className="navbar-container"  style={{height: '100vh'}}>
@@ -19,4 +37,5 @@ class BaseLayout extends Component {
     }
 }
 
-export default BaseLayout
+
+export default withRouter(connect(null)(BaseLayout))

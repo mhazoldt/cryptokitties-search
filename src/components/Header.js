@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom'
 import { Icon, Navbar } from 'react-materialize'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
 
 class Header extends Component {
@@ -19,4 +21,5 @@ class Header extends Component {
     }
 }
 
-export default Header;
+// export default withRouter(connect(null)(Header))
+export default Header
