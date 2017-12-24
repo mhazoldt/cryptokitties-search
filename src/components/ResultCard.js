@@ -196,7 +196,7 @@ class ResultCard extends Component {
 
                 {this.props.cardAnimation === 'intro' &&
 
-                    <Card className='hoverable animated bounceInRight' style={{ backgroundColor: kittyBackground, minHeight: '534px' }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p>created: {created_at}</div>} key={kitty.id}>
+                    <Card className='hoverable animated bounceInRight' style={{ backgroundColor: kittyBackground }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p>created: {created_at}</div>} key={kitty.id}>
                         <Collection>
                             <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'>{cat.color1}</span></CollectionItem>
                             <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'> {cat.color2} </span></CollectionItem>
@@ -215,7 +215,7 @@ class ResultCard extends Component {
                 }
                 {this.props.cardAnimation === 'outro' &&
 
-                    <Card className='hoverable animated bounceOutLeft' style={{ backgroundColor: kittyBackground, minHeight: '534px' }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p>created: {created_at}</div>} key={kitty.id}>
+                    <Card className='hoverable animated bounceOutLeft' style={{ backgroundColor: kittyBackground }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p>created: {created_at}</div>} key={kitty.id}>
                         <Collection>
                             <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'>{cat.color1}</span></CollectionItem>
                             <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'> {cat.color2} </span></CollectionItem>

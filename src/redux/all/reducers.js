@@ -95,7 +95,7 @@ function allPage(state = [], action) {
             
             return newState
         }
-        case 'SET_ALL_PAGE_NUMBER_ALL': {
+        case 'SET_ALL_PAGE_NUMBER': {
             let newState = Object.assign({}, state, {
                 allPageNumber: action.page
 

@@ -24,6 +24,7 @@ import ResultCard from './ResultCard'
 import GenerationSelect from './GenerationSelect'
 import Sort from './Sort'
 import Results from './Results'
+import ResultsPagination from './ResultsPagination'
 
 
 class Sire extends Component {
@@ -345,9 +346,7 @@ class Sire extends Component {
                     <h5 className='ml-3 pt-2'>Results: <Results value={results} setResultsChanged={setResultsChanged} /></h5>
 
                     {this.props.total > 20 &&
-                        <div className='mb-4 animated fadeIn' style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
-                            <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.sirePageNumber} maxButtons={5} onSelect={this.search} /></span>
-                        </div>
+                        <ResultsPagination startSearch={this.search} />  
                     }
 
                     <div className='row' id='cardRow' ref={this.saveElement}>
@@ -355,11 +354,7 @@ class Sire extends Component {
                     </div>
 
                     {this.props.total > 20 &&
-                        <div className='mb-4 animated fadeIn' style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
-                            <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.sirePageNumber} maxButtons={5} onSelect={this.search} /></span>
-
-                        </div>
-
+                        <ResultsPagination startSearch={this.search} />
                     }
                 </div>
 
