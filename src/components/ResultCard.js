@@ -40,6 +40,9 @@ class ResultCard extends Component {
             let remaining_seconds = remaining_time / 1000
             let remaining_minutes = remaining_seconds / 60
             let remaining_hours = remaining_minutes / 60
+            let remaining_day = remaining_hours / 24
+            let hours_remainder = remaining_hours % 24
+            let remaining_year = remaining_day / 365
 
             let addCommas = (number) => {
                 return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -47,15 +50,16 @@ class ResultCard extends Component {
 
             if (remaining_hours < 0) {
                 formattedTime = ''
+
+            } else if (remaining_day > 999) {
+                formattedTime = addCommas(parseInt(remaining_year)) + 'y'
+
             } else if (remaining_hours > 24) {
-                let remaining_day = remaining_hours / 24
-                let hours_remainder = remaining_hours % 24
                 formattedTime = addCommas(parseInt(remaining_day)) + 'd ' + parseInt(hours_remainder).toString() + 'h'
 
             } else {
                 formattedTime = parseInt(remaining_hours).toString() + 'h'
             }
-
 
 
             let current_price = kitty.auction.current_price
@@ -69,7 +73,13 @@ class ResultCard extends Component {
             let significant_price = current_price / 100000000000000
             
 
-            let priceUSD = '$' + addCommas(parseInt(ether_price * this.props.ethPrice))
+            let priceUSD = parseInt(ether_price * this.props.ethPrice)
+
+            if(priceUSD  > 999999) {
+                priceUSD = `$${parseInt(priceUSD / 1000000)}million`
+            } else {
+                priceUSD = `$${priceUSD}`
+            }
 
             petaEther_price = parseInt(petaEther_price)
             teraEther_price = parseInt(teraEther_price)
