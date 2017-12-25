@@ -80,7 +80,9 @@ let initialState = {
         resultsChanged: false
     },
     baseLayout: {
-        ethPrice: null
+        ethPrice: null,
+        isFetchingEthPrice: false,
+        total: 0
     }
 
 }

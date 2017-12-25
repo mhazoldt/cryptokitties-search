@@ -156,18 +156,39 @@ class ResultCard extends Component {
         // console.log("cattributes", kitty.cattributes)
 
         let cat = {}
+        let percent = {}
         let firstColor = true
 
         kitty.cattributes.forEach((cattribute) => {
             if (cattribute.type === "color" && firstColor) {
                 cat.color1 = cattribute.description
+
+                this.props.searchValues.forEach((searchValue) => {
+                    if(cat.color1 === searchValue.text) {
+                        percent.color1 = <span style={{ color: '#9e9e9e' }}>{parseInt(((searchValue.total / this.props.total) * 100))}</span>
+                    }
+                })
+
                 firstColor = false
+                
 
             } else if (cattribute.type === "color") {
                 cat.color2 = cattribute.description
 
+                this.props.searchValues.forEach((searchValue) => {
+                    if(cat.color2 === searchValue.text) {
+                        percent.color2 = <span style={{ color: '#9e9e9e' }}>{parseInt(((searchValue.total / this.props.total) * 100)) }</span>
+                    }
+                })
+
             } else {
                 cat[cattribute.type] = cattribute.description
+
+                this.props.searchValues.forEach((searchValue) => {
+                    if(cattribute.description === searchValue.text) {
+                        percent[cattribute.type] = <span style={{ color: '#9e9e9e' }}>{parseInt(((searchValue.total / this.props.total) * 100))}</span>
+                    }
+                })
 
             }
 
@@ -183,6 +204,17 @@ class ResultCard extends Component {
                 eyes: 'Fancy ' + kitty.fancy_type,
                 pattern: 'Fancy ' + kitty.fancy_type,
                 mouth: 'Fancy ' + kitty.fancy_type
+            }
+
+            percent = {
+                color1: '',
+                color2: '',
+                colorbody: '',
+                body: '',
+                coloreyes: '',
+                eyes: '',
+                pattern: '',
+                mouth: ''
             }
 
         }
@@ -216,12 +248,12 @@ class ResultCard extends Component {
 
                     <Card className='hoverable animated bounceInRight' style={{ backgroundColor: kittyBackground }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p><p>created: {created_at}</p><p>{ethPrice}</p></div>} key={kitty.id}>
                         <Collection>
-                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'>{cat.color1}</span></CollectionItem>
-                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'> {cat.color2} </span></CollectionItem>
-                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>accessibility</Icon>  <span className='cattribute-text'> {cat.colorbody} {cat.body} </span></CollectionItem>
-                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>visibility</Icon>  <span className='cattribute-text'> {cat.coloreyes} {cat.eyes} </span></CollectionItem>
-                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>fingerprint</Icon>  <span className='cattribute-text'> {cat.pattern} </span></CollectionItem>
-                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>insert_emoticon</Icon>  <span className='cattribute-text'> {cat.mouth} </span></CollectionItem>
+                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'> {cat.color1} {percent.color1}</span></CollectionItem>
+                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'> {cat.color2} {percent.color2}</span></CollectionItem>
+                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor, paddingRight: '0px' }}> <Icon left={true} className='icon-margin'>accessibility</Icon>  <span className='cattribute-text'> {cat.colorbody} {percent.colorbody} {cat.body} {percent.body}</span></CollectionItem>
+                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor, paddingRight: '0px' }}> <Icon left={true} className='icon-margin'>visibility</Icon>  <span className='cattribute-text'> {cat.coloreyes} {percent.coloreyes} {cat.eyes} {percent.eyes}</span></CollectionItem>
+                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>fingerprint</Icon>  <span className='cattribute-text'> {cat.pattern} {percent.pattern} </span></CollectionItem>
+                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>insert_emoticon</Icon>  <span className='cattribute-text'> {cat.mouth} {percent.mouth} </span></CollectionItem>
                         </Collection>
                         <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
                             <span className='cattribute-text' style={{ color: cardTextColor, marginLeft: '15px' }}>#{kitty.id}</span>
@@ -262,17 +294,23 @@ function mapStateToProps(appState) {
     if (appState.salesPage.active  === 'sale') {
         return {
             cardAnimation: appState.salesPage.cardAnimation,
-            ethPrice: appState.baseLayout.ethPrice
+            ethPrice: appState.baseLayout.ethPrice,
+            total: appState.baseLayout.total,
+            searchValues: appState.salesPage.searchValues
         }
     } else if (appState.sirePage.active  === 'sire') {
         return {
             cardAnimation: appState.sirePage.cardAnimation,
-            ethPrice: appState.baseLayout.ethPrice
+            ethPrice: appState.baseLayout.ethPrice,
+            total: appState.baseLayout.total,
+            searchValues: appState.sirePage.searchValues
         }
     } else if (appState.allPage.active  === 'all') {
         return {
             cardAnimation: appState.allPage.cardAnimation,
-            ethPrice: appState.baseLayout.ethPrice
+            ethPrice: appState.baseLayout.ethPrice,
+            total: appState.baseLayout.total,
+            searchValues: appState.allPage.searchValues
         }
     } 
 }

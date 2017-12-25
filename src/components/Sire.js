@@ -263,7 +263,7 @@ class Sire extends Component {
 
             nextProps.allCattributes.forEach((cattribute) => {
                 // take each cattribute and add it to an array to track input selection in redux
-                searchValues.push({ text: cattribute.description, searchText: cattribute.description, value: false, type: cattribute.type })
+                searchValues.push({ text: cattribute.description, searchText: cattribute.description, value: false, type: cattribute.type, total: cattribute.total })
             })
 
             let cooldowns = ['fast', 'swift', 'snappy', 'brisk', 'plodding', 'slow', 'sluggish', 'catatonic']
@@ -383,7 +383,8 @@ function mapStateToProps(appState) {
         cardAnimation: appState.sirePage.cardAnimation,
         generation: appState.sirePage.generation,
         initialLoad: appState.sirePage.initialLoad,
-        sort: appState.sirePage.sort
+        sort: appState.sirePage.sort,
+        total: appState.baseLayout.total
 
     }
 

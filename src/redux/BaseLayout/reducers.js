@@ -250,6 +250,23 @@ function baseLayout(state = [], action) {
             
             return newState
         }
+        case 'STARTING_FETCH_TOTAL': {
+            let newState = Object.assign({}, state, {
+                isFetchingTotal: true,
+
+            })
+            
+            return newState
+        }
+        case 'FETCH_COMPLETE_TOTAL': {
+            let newState = Object.assign({}, state, {
+                isFetchingTotal: false,
+                total: action.total
+
+            })
+            
+            return newState
+        }
         default: {
             return state
         }

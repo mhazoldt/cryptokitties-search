@@ -9,7 +9,8 @@ import {
     getCatIds,
     getAllCattributes,
     setSearchValues,
-    getEthPrice
+    getEthPrice,
+    getTotal
 } from '../redux/BaseLayout/actionCreators'
 
 
@@ -19,6 +20,7 @@ class BaseLayout extends Component {
 
     componentWillMount() {
         this.props.dispatch(getEthPrice())
+        this.props.dispatch(getTotal())
     }
 
     render() {

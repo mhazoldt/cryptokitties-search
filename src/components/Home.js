@@ -56,6 +56,9 @@ class Home extends Component {
                             <p className='mt-4'>
                                 Current price of Eth: {price}
                             </p>
+                            <p className='mt-4'>
+                                The grey numbers next to the cattributes on the cards are the percentage of CryptoKitties that have that cattribute.
+                            </p>
 
                         </div>
                         <div class="card-action">

@@ -267,7 +267,7 @@ class Sale extends Component {
 
             nextProps.allCattributes.forEach((cattribute) => {
                 // take each cattribute and add it to an array to track input selection in redux
-                searchValues.push({ text: cattribute.description, searchText: cattribute.description, value: false, type: cattribute.type })
+                searchValues.push({ text: cattribute.description, searchText: cattribute.description, value: false, type: cattribute.type, total: cattribute.total })
             })
 
             let cooldowns = ['fast', 'swift', 'snappy', 'brisk', 'plodding', 'slow', 'sluggish', 'catatonic']
@@ -386,7 +386,8 @@ function mapStateToProps(appState) {
         cardAnimation: appState.salesPage.cardAnimation,
         generation: appState.salesPage.generation,
         initialLoad: appState.salesPage.initialLoad,
-        sort: appState.salesPage.sort
+        sort: appState.salesPage.sort,
+        total: appState.baseLayout.total
 
     }
 
