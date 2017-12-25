@@ -76,9 +76,9 @@ class ResultCard extends Component {
             let priceUSD = parseInt(ether_price * this.props.ethPrice)
 
             if(priceUSD  > 999999) {
-                priceUSD = `$${parseInt(priceUSD / 1000000)}million`
+                priceUSD = `$${addCommas(parseInt(priceUSD / 1000000))}million`
             } else {
-                priceUSD = `$${priceUSD}`
+                priceUSD = `$${addCommas(priceUSD)}`
             }
 
             petaEther_price = parseInt(petaEther_price)
