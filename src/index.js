@@ -21,8 +21,6 @@ let initialState = {
         cards: [],
         salesPageNumber: 1,
         isFetching: false,
-        allCattributes: [],
-        isFetchingAllCattributes: false,
         checkboxes: [],
         searchValues: [],
         total: 0,
@@ -43,8 +41,6 @@ let initialState = {
         cards: [],
         sirePageNumber: 1,
         isFetching: false,
-        allCattributes: [],
-        isFetchingAllCattributes: false,
         checkboxes: [],
         searchValues: [],
         total: 0,
@@ -81,8 +77,18 @@ let initialState = {
     },
     baseLayout: {
         ethPrice: null,
+        total: 0,
+        allCattributes: [],
+
         isFetchingEthPrice: false,
-        total: 0
+        isFetchingTotal: false,
+        isFetchingAllCattributes: false,
+
+        completedCattributes: false,
+        completedEthPrice: false,
+        completedTotal: false,
+
+        isInitialized: false
     }
 
 }

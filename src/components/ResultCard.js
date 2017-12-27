@@ -164,8 +164,8 @@ class ResultCard extends Component {
                 cat.color1 = cattribute.description
 
                 this.props.searchValues.forEach((searchValue) => {
-                    if(cat.color1 === searchValue.text) {
-                        percent.color1 = <span style={{ color: '#9e9e9e' }}>{parseInt(((searchValue.total / this.props.total) * 100))}</span>
+                    if(cat.color1 === searchValue.searchText) {
+                        percent.color1 = <span style={{ color: '#9e9e9e' }}>{searchValue.percent}</span>
                     }
                 })
 
@@ -176,8 +176,8 @@ class ResultCard extends Component {
                 cat.color2 = cattribute.description
 
                 this.props.searchValues.forEach((searchValue) => {
-                    if(cat.color2 === searchValue.text) {
-                        percent.color2 = <span style={{ color: '#9e9e9e' }}>{parseInt(((searchValue.total / this.props.total) * 100)) }</span>
+                    if(cat.color2 === searchValue.searchText) {
+                        percent.color2 = <span style={{ color: '#9e9e9e' }}>{searchValue.percent}</span>
                     }
                 })
 
@@ -185,8 +185,8 @@ class ResultCard extends Component {
                 cat[cattribute.type] = cattribute.description
 
                 this.props.searchValues.forEach((searchValue) => {
-                    if(cattribute.description === searchValue.text) {
-                        percent[cattribute.type] = <span style={{ color: '#9e9e9e' }}>{parseInt(((searchValue.total / this.props.total) * 100))}</span>
+                    if(cattribute.description === searchValue.searchText) {
+                        percent[cattribute.type] = <span style={{ color: '#9e9e9e' }}>{searchValue.percent}</span>
                     }
                 })
 
@@ -296,7 +296,8 @@ function mapStateToProps(appState) {
             cardAnimation: appState.salesPage.cardAnimation,
             ethPrice: appState.baseLayout.ethPrice,
             total: appState.baseLayout.total,
-            searchValues: appState.salesPage.searchValues
+            searchValues: appState.salesPage.searchValues,
+            allCattributes: appState.baseLayout.allCattributes
         }
     } else if (appState.sirePage.active  === 'sire') {
         return {

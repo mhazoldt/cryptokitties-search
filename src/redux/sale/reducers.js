@@ -1,4 +1,4 @@
-
+import React, { Component } from 'react';
 
 
 function salesPage(state = [], action) {
@@ -228,6 +228,47 @@ function salesPage(state = [], action) {
             let newState = Object.assign({}, state, {
                 isFetchingAllCattributes: false,
                 allCattributes: action.allCattributes
+
+            })
+            
+            return newState
+        }
+        case 'FETCH_COMPLETE_ALL_CATTRIBUTES_B': {
+            let cattributes = []
+            let total = action.total
+
+            cattributes = action.allCattributes.map((cattribute) => {
+                return { description: cattribute.description, type: cattribute.type, percent: parseInt((cattribute.total / total) * 100) }
+            })
+
+            let searchValues = []
+
+            cattributes.forEach((cattribute) => {
+                // take each cattribute and add it to an array to track input selection in redux
+                searchValues.push({ text: <span style={{marginLeft: '-12px'}}>{cattribute.description}<span style={{color: 'white'}}>.</span>{cattribute.percent}%</span>, searchText: cattribute.description, value: false, type: cattribute.type, percent: cattribute.percent })
+            })
+
+            let cooldowns = ['fast', 'swift', 'snappy', 'brisk', 'plodding', 'slow', 'sluggish', 'catatonic']
+
+            cooldowns.forEach((cooldown) => {
+
+                searchValues.push({ text: cooldown, searchText: `cooldown:${cooldown}`, value: false, type: 'cooldown' })
+            })
+
+            let nfe = ['normal', 'fancy', 'exclusive']
+
+            nfe.forEach((ckType) => {
+
+                searchValues.push({ text: ckType, searchText: `type:${ckType}`, value: false, type: 'ckType' })
+            })
+
+            searchValues.push({ text: 'generation', searchText: `gen:${state.generation}`, value: false, type: 'generation' })
+
+
+
+
+            let newState = Object.assign({}, state, {
+                searchValues: searchValues
 
             })
             

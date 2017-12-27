@@ -231,12 +231,6 @@ class Sale extends Component {
             this.props.dispatch(getCatIds())
         }
 
-        // this gets the initial list of catributes,
-        // sets search values and generates checkboxes
-        if (this.props.allCattributes.length === 0) {
-            this.props.dispatch(getAllCattributes())
-        }
-
         if (this.props.searchValues.length != 0) {
             this.generateCheckboxes(this.props.searchValues)
 
@@ -252,42 +246,12 @@ class Sale extends Component {
 
     }
 
-    
+
     componentWillReceiveProps(nextProps) {
 
         // when ckData updates generate new cards
         if (this.props.ckData != nextProps.ckData) {
             this.generateCards(nextProps.ckData)
-        }
-
-        // when allCattributes updates set search values
-        if (this.props.allCattributes != nextProps.allCattributes) {
-
-            let searchValues = []
-
-            nextProps.allCattributes.forEach((cattribute) => {
-                // take each cattribute and add it to an array to track input selection in redux
-                searchValues.push({ text: cattribute.description, searchText: cattribute.description, value: false, type: cattribute.type, total: cattribute.total })
-            })
-
-            let cooldowns = ['fast', 'swift', 'snappy', 'brisk', 'plodding', 'slow', 'sluggish', 'catatonic']
-
-            cooldowns.forEach((cooldown) => {
-
-                searchValues.push({ text: cooldown, searchText: `cooldown:${cooldown}`, value: false, type: 'cooldown' })
-            })
-
-            let nfe = ['normal', 'fancy', 'exclusive']
-
-            nfe.forEach((ckType) => {
-
-                searchValues.push({ text: ckType, searchText: `type:${ckType}`, value: false, type: 'ckType' })
-            })
-
-            searchValues.push({ text: 'generation', searchText: `gen:${this.props.generation}`, value: false, type: 'generation' })
-
-            this.props.dispatch(setSearchValues(searchValues))
-
         }
 
         if (this.props.searchValues != nextProps.searchValues) {
@@ -319,12 +283,12 @@ class Sale extends Component {
         return (
             <div>
                 <h4 className='center-align page-heading animated flipInY'><u>Sale</u></h4>
-                {!this.props.isFetchingAllCattributes &&
+                {this.props.searchValues.length != 0 &&
                     <Row className={checkboxClass}>
                         {this.props.checkboxes}
                     </Row>
                 }
-                {this.props.isFetchingAllCattributes &&
+                {this.props.searchValues.length === 0 &&
 
                     <div className='center-align mt-4 pt-4 animated fadeIn' style={{ minHeight: '100vh' }}>
 
@@ -379,7 +343,7 @@ function mapStateToProps(appState) {
         salesPageNumber: appState.salesPage.salesPageNumber,
         isFetching: appState.salesPage.isFetching,
         isFetchingAllCattributes: appState.salesPage.isFetchingAllCattributes,
-        allCattributes: appState.salesPage.allCattributes,
+        allCattributes: appState.baseLayout.allCattributes,
         checkboxes: appState.salesPage.checkboxes,
         searchValues: appState.salesPage.searchValues,
         total: appState.salesPage.total,
@@ -387,10 +351,8 @@ function mapStateToProps(appState) {
         generation: appState.salesPage.generation,
         initialLoad: appState.salesPage.initialLoad,
         sort: appState.salesPage.sort,
-        total: appState.baseLayout.total
-
+        total: appState.salesPage.total
     }
-
 }
 
 export default connect(mapStateToProps)(Sale);

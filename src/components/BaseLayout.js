@@ -4,23 +4,18 @@ import Header from './Header';
 import PageFooter from './PageFooter';
 import { withRouter } from 'react-router'
 
-
 import {
-    getCatIds,
     getAllCattributes,
-    setSearchValues,
     getEthPrice,
-    getTotal
+    isInitialized
 } from '../redux/BaseLayout/actionCreators'
-
-
 
 
 class BaseLayout extends Component {
 
     componentWillMount() {
         this.props.dispatch(getEthPrice())
-        this.props.dispatch(getTotal())
+        this.props.dispatch(getAllCattributes())
     }
 
     render() {
@@ -36,6 +31,16 @@ class BaseLayout extends Component {
                 </div>
             </div>
         )
+    }
+}
+
+
+
+function mapStateToProps(appState) {
+    return {
+        completedCattributes: appState.baseLayout.completedCattributes,
+        completedEthPrice: appState.baseLayout.completedEthPrice,
+        completedTotal: appState.baseLayout.completedTotal
     }
 }
 
