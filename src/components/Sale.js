@@ -104,6 +104,12 @@ class Sale extends Component {
                 inputType: 'radio'
             },
             {
+                icon: 'terrain',
+                heading: 'Wild',
+                inputs: valuesSorted.wild,
+                inputType: 'radio'
+            },
+            {
                 icon: 'query_builder',
                 heading: 'Cooldown',
                 inputs: valuesSorted.cooldown,

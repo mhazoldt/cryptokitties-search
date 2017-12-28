@@ -25,7 +25,7 @@ class Home extends Component {
                             </p>
 
                             <p className='mt-2'>
-                                The search inputs are automatically updated as new cattributes are available.
+                                The search inputs are automatically updated as new cattributes are available. New cattribute categories do require an update.
                             </p>
 
                             <p className='mt-3'>
