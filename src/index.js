@@ -61,8 +61,6 @@ let initialState = {
         cards: [],
         allPageNumber: 1,
         isFetching: false,
-        allCattributes: [],
-        isFetchingAllCattributes: false,
         checkboxes: [],
         searchValues: [],
         total: 0,
