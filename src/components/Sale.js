@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Row, Button, Icon, Pagination, Input } from 'react-materialize'
+import { Row, Button, Icon, Input } from 'react-materialize'
 
 import {
     getCatIds,
     setCards,
     setSalesPageNumber,
-    getAllCattributes,
     setCheckboxes,
-    setSearchValues,
     toggleSearchValue,
     setCardAnimation,
     setGeneration,

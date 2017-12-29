@@ -88,14 +88,14 @@ class ResultCard extends Component {
             ether_price = parseInt(ether_price)
             microEther_price = parseInt(microEther_price)
 
-            console.log("price_data", current_price)
-            console.log("significant_price", significant_price)
-            console.log("petaEther", petaEther_price)
-            console.log("teraEther", teraEther_price)
-            console.log("gigaEther", gigaEther_price)
-            console.log("megaEther", megaEther_price)
-            console.log("ether_price", ether_price)
-            console.log("mircoEther", microEther_price)
+            // console.log("price_data", current_price)
+            // console.log("significant_price", significant_price)
+            // console.log("petaEther", petaEther_price)
+            // console.log("teraEther", teraEther_price)
+            // console.log("gigaEther", gigaEther_price)
+            // console.log("megaEther", megaEther_price)
+            // console.log("ether_price", ether_price)
+            // console.log("mircoEther", microEther_price)
 
             let priceIcon
             
@@ -233,7 +233,7 @@ class ResultCard extends Component {
 
         }
 
-        let cooldowns = ['Fast', 'Swift', 'Snappy', 'Brisk', 'Plodding', 'Slow', 'Sluggish', 'Catatonic']
+        let cooldowns = ['Fast', 'Swift', 'Swift', 'Snappy', 'Snappy', 'Brisk', 'Brisk', 'Plodding', 'Plodding', 'Slow', 'Slow', 'Sluggish', 'Sluggish', 'Catatonic']
         let cooldown_index = kitty.status.cooldown_index
         let cooldown = cooldowns[cooldown_index]
 

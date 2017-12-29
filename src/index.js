@@ -84,9 +84,7 @@ let initialState = {
 
         completedCattributes: false,
         completedEthPrice: false,
-        completedTotal: false,
-
-        isInitialized: false
+        completedTotal: false
     }
 
 }

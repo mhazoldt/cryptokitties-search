@@ -6,8 +6,7 @@ import { withRouter } from 'react-router'
 
 import {
     getAllCattributes,
-    getEthPrice,
-    isInitialized
+    getEthPrice
 } from '../redux/BaseLayout/actionCreators'
 
 
@@ -31,16 +30,6 @@ class BaseLayout extends Component {
                 </div>
             </div>
         )
-    }
-}
-
-
-
-function mapStateToProps(appState) {
-    return {
-        completedCattributes: appState.baseLayout.completedCattributes,
-        completedEthPrice: appState.baseLayout.completedEthPrice,
-        completedTotal: appState.baseLayout.completedTotal
     }
 }
 

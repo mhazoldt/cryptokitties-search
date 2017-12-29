@@ -1,14 +1,4 @@
 
-function startingFetch() {
-    return { type: 'STARTING_FETCH_B' }
-}
-
-function fetchComplete() {
-    return { type: 'FETCH_COMPLETE_B' }
-}
-
-
-
 function startingFetchAllCattributes() {
     return { type: 'STARTING_FETCH_ALL_CATTRIBUTES_B' }
 }
@@ -47,12 +37,6 @@ function fetchCompleteTotal(total) {
 
 function completedTotal() {
     return { type: 'COMPLETED_TOTAL' }
-}
-
-
-
-function isInitialized() {
-    return { type: 'SET_INITIALIZED' }
 }
 
 
@@ -205,6 +189,5 @@ function fetchAllCattributes(total) {
 
 module.exports = { 
     getAllCattributes,
-    getEthPrice,
-    isInitialized
+    getEthPrice
 }
