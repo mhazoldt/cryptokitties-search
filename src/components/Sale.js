@@ -23,6 +23,7 @@ import GenerationSelect from './GenerationSelect'
 import Sort from './Sort'
 import Results from './Results'
 import ResultsPagination from './ResultsPagination'
+import LoadingCircle from './LoadingCircle'
 
 
 class Sale extends Component {
@@ -304,21 +305,7 @@ class Sale extends Component {
                 }
                 {this.props.searchValues.length === 0 &&
 
-                    <div className='center-align mt-4 pt-4 animated fadeIn' style={{ minHeight: '100vh' }}>
-
-                        <div className="preloader-wrapper big active">
-                            <div className="spinner-layer spinner-blue">
-                                <div className="circle-clipper left">
-                                    <div className="circle"></div>
-                                </div><div className="gap-patch">
-                                    <div className="circle"></div>
-                                </div><div className="circle-clipper right">
-                                    <div className="circle"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    <LoadingCircle />
 
                 }
                 <div ref={(thisTag) => { this.resultsHeading = thisTag }}></div>

@@ -23,6 +23,7 @@ import GenerationSelect from './GenerationSelect'
 import Sort from './Sort'
 import Results from './Results'
 import ResultsPagination from './ResultsPagination'
+import LoadingCircle from './LoadingCircle'
 
 
 class Sire extends Component {
@@ -298,23 +299,9 @@ class Sire extends Component {
                         {this.props.checkboxes}
                     </Row>
                 }
-                {this.props.searchValues === 0 &&
+                {this.props.searchValues.length === 0 &&
 
-                    <div className='center-align mt-4 pt-4 animated fadeIn' style={{ minHeight: '100vh' }}>
-
-                        <div class="preloader-wrapper big active">
-                            <div class="spinner-layer spinner-blue">
-                                <div class="circle-clipper left">
-                                    <div class="circle"></div>
-                                </div><div class="gap-patch">
-                                    <div class="circle"></div>
-                                </div><div class="circle-clipper right">
-                                    <div class="circle"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    <LoadingCircle />
 
                 }
                 <div ref={(thisTag) => { this.resultsHeading = thisTag }}></div>
