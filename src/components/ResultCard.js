@@ -71,11 +71,11 @@ class ResultCard extends Component {
             let ether_price = current_price / 1000000000000000000
             let microEther_price = current_price / 1000000000000
             let significant_price = current_price / 100000000000000
-            
+
 
             let priceUSD = parseInt(ether_price * this.props.ethPrice)
 
-            if(priceUSD  > 999999) {
+            if (priceUSD > 999999) {
                 priceUSD = `$${addCommas(parseInt(priceUSD / 1000000))}million`
             } else {
                 priceUSD = `$${addCommas(priceUSD)}`
@@ -98,18 +98,18 @@ class ResultCard extends Component {
             // console.log("mircoEther", microEther_price)
 
             let priceIcon
-            
 
-            if(kitty.auction.type === 'sale') {
+
+            if (kitty.auction.type === 'sale') {
                 priceIcon = 'local_offer'
-            } else if(kitty.auction.type === 'sire') {
+            } else if (kitty.auction.type === 'sire') {
                 priceIcon = 'child_friendly'
             }
 
-            if(gigaEther_price > 999999) {
+            if (gigaEther_price > 999999) {
                 displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(petaEther_price) + 'p'}</span>
                 console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
-            } else if(megaEther_price > 999999) {
+            } else if (megaEther_price > 999999) {
                 displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(gigaEther_price) + 'g'}</span>
                 console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
             } else if (ether_price > 999999) {
@@ -124,8 +124,8 @@ class ResultCard extends Component {
                 displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{priceUSD}</span>
             }
 
-        } 
-        
+        }
+
         let image_url
 
         if (kitty.image_url === null && kitty.generation === 0) {
@@ -136,7 +136,7 @@ class ResultCard extends Component {
 
         let cardHeader = (
             <CardTitle reveal image={image_url} style={{ background: kittyBackground }}>
-                <div className='image-text-positioning activator' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <div className='image-text-positioning activator' style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '200px' }}>
                     <div className='truncate name-font' style={{ width: '100%', color: cardTextColor }}>
                         {kitty.name}
                     </div>
@@ -164,19 +164,19 @@ class ResultCard extends Component {
                 cat.color1 = cattribute.description
 
                 this.props.searchValues.forEach((searchValue) => {
-                    if(cat.color1 === searchValue.searchText) {
+                    if (cat.color1 === searchValue.searchText) {
                         percent.color1 = <span style={{ color: '#9e9e9e' }}>{searchValue.percent}</span>
                     }
                 })
 
                 firstColor = false
-                
+
 
             } else if (cattribute.type === "color") {
                 cat.color2 = cattribute.description
 
                 this.props.searchValues.forEach((searchValue) => {
-                    if(cat.color2 === searchValue.searchText) {
+                    if (cat.color2 === searchValue.searchText) {
                         percent.color2 = <span style={{ color: '#9e9e9e' }}>{searchValue.percent}</span>
                     }
                 })
@@ -185,7 +185,7 @@ class ResultCard extends Component {
                 cat[cattribute.type] = cattribute.description
 
                 this.props.searchValues.forEach((searchValue) => {
-                    if(cattribute.description === searchValue.searchText) {
+                    if (cattribute.description === searchValue.searchText) {
                         percent[cattribute.type] = <span style={{ color: '#9e9e9e' }}>{searchValue.percent}</span>
                     }
                 })
@@ -282,6 +282,25 @@ class ResultCard extends Component {
 
                     </Card>
                 }
+                {this.props.cardAnimation === 'not-visible' &&
+
+                    <Card className='hoverable animated bounceOutLeft' style={{ backgroundColor: kittyBackground, visibility: 'hidden' }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p>created: {created_at}</div>} key={kitty.id}>
+                        <Collection>
+                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'>{cat.color1}</span></CollectionItem>
+                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'> {cat.color2} </span></CollectionItem>
+                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>accessibility</Icon>  <span className='cattribute-text'> {cat.colorbody} {cat.body} </span></CollectionItem>
+                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>visibility</Icon>  <span className='cattribute-text'> {cat.coloreyes} {cat.eyes} </span></CollectionItem>
+                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>fingerprint</Icon>  <span className='cattribute-text'> {cat.pattern} </span></CollectionItem>
+                            <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>insert_emoticon</Icon>  <span className='cattribute-text'> {cat.mouth} </span></CollectionItem>
+                        </Collection>
+                        <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+                            <span className='cattribute-text' style={{ color: cardTextColor, marginLeft: '15px' }}>#{kitty.id}</span>
+                            <span className='cattribute-text' style={{ color: '#9e9e9e' }}>{cooldown}</span>
+                            <span className='cattribute-text' style={{ color: cardTextColor, marginRight: '15px' }}>Gen. {kitty.generation}</span>
+                        </div>
+
+                    </Card>
+                }
 
             </div>
 
@@ -291,7 +310,7 @@ class ResultCard extends Component {
 
 
 function mapStateToProps(appState) {
-    if (appState.salesPage.active  === 'sale') {
+    if (appState.salesPage.active === 'sale') {
         return {
             cardAnimation: appState.salesPage.cardAnimation,
             ethPrice: appState.baseLayout.ethPrice,
@@ -299,21 +318,21 @@ function mapStateToProps(appState) {
             searchValues: appState.salesPage.searchValues,
             allCattributes: appState.baseLayout.allCattributes
         }
-    } else if (appState.sirePage.active  === 'sire') {
+    } else if (appState.sirePage.active === 'sire') {
         return {
             cardAnimation: appState.sirePage.cardAnimation,
             ethPrice: appState.baseLayout.ethPrice,
             total: appState.baseLayout.total,
             searchValues: appState.sirePage.searchValues
         }
-    } else if (appState.allPage.active  === 'all') {
+    } else if (appState.allPage.active === 'all') {
         return {
             cardAnimation: appState.allPage.cardAnimation,
             ethPrice: appState.baseLayout.ethPrice,
             total: appState.baseLayout.total,
             searchValues: appState.allPage.searchValues
         }
-    } 
+    }
 }
 
 

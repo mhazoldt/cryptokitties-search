@@ -32,7 +32,7 @@ class Sale extends Component {
 
     }
 
-    
+
     generateCards(kittyData) {
         let cards = kittyData.map((kitty) => {
             return <ResultCard ckData={kitty} />
@@ -273,7 +273,8 @@ class Sale extends Component {
         // when new cards have been generated make them visible on the page
         // by setting the card animation to intro
         if (this.props.cards != nextProps.cards) {
-            this.props.dispatch(setCardAnimation('intro'))
+            this.props.dispatch(setCardAnimation('not-visible'))
+            setTimeout(() => {this.props.dispatch(setCardAnimation('intro'))}, 250)
         }
     }
 

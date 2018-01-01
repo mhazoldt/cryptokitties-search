@@ -261,7 +261,9 @@ class All extends Component {
 
         // when ckData updates generate new cards
         if (this.props.cards != nextProps.cards) {
-            this.props.dispatch(setCardAnimation('intro'))
+            this.props.dispatch(setCardAnimation('not-visible'))
+            setTimeout(() => {this.props.dispatch(setCardAnimation('intro'))}, 250)
+
         }
     }
 
