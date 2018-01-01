@@ -13,7 +13,7 @@ class Results extends Component {
 
         return (
             <span>
-                {this.props.resultsChanged != this.props.value &&
+                {this.props.resultsChanged !== this.props.value &&
                     <h5 className='animated flipInX' style={{ display: 'inline-block', marginTop: '0px' }}>{this.props.value}</h5>
                 }
                 {this.props.resultsChanged === this.props.value &&

@@ -79,7 +79,7 @@ function allPage(state = [], action) {
                 if (curCheckboxValue.searchText === action.searchText) {
                     curCheckboxValue.value = !curCheckboxValue.value
                     return curCheckboxValue
-                } else if (curCheckboxValue.type === action.valueType && action.inputType != 'checkbox') {
+                } else if (curCheckboxValue.type === action.valueType && action.inputType !== 'checkbox') {
                     curCheckboxValue.value = false
                     return curCheckboxValue
                 } else {
@@ -221,6 +221,7 @@ function allPage(state = [], action) {
             let total = action.total
 
             cattributes = action.allCattributes.map((cattribute) => {
+                // eslint-disable-next-line 
                 return { description: cattribute.description, type: cattribute.type, percent: parseInt((cattribute.total / total) * 100) }
             })
 

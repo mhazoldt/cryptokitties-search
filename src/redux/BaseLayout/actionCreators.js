@@ -64,7 +64,7 @@ function getEthPrice(offset, searchText, sort) {
 
         let url = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD'
 
-        console.log(url)
+        // console.log(url)
 
         return fetch(url)
             .then(
@@ -79,7 +79,7 @@ function getEthPrice(offset, searchText, sort) {
                 // We can dispatch many times!
                 // Here, we update the app state with the results of the API call.
 
-                console.log('################# data returned ETH ETH ETH', j);
+                // console.log('################# data returned ETH ETH ETH', j);
 
                 let price = j.USD
 
@@ -117,7 +117,7 @@ function fetchTotal() {
 
         let url = 'https://api.cryptokitties.co/kitties?limit=20'
 
-        console.log(url)
+        // console.log(url)
 
         return fetch(url)
             .then(
@@ -132,7 +132,7 @@ function fetchTotal() {
                 // We can dispatch many times!
                 // Here, we update the app state with the results of the API call.
 
-                console.log('################# data returned', j);
+                // console.log('################# data returned', j);
 
                 let total = j.total
 

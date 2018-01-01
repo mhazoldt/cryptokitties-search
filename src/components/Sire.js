@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Row, Button, Icon, Input } from 'react-materialize'
+import { Row } from 'react-materialize'
 
 import {
     getCatIds,
@@ -19,8 +19,6 @@ import {
 } from '../redux/sire/actionCreators'
 
 import ResultCard from './ResultCard'
-import GenerationSelect from './GenerationSelect'
-import Sort from './Sort'
 import Results from './Results'
 import ResultsPagination from './ResultsPagination'
 import LoadingCircle from './LoadingCircle'
@@ -30,13 +28,13 @@ import Checkboxes from './Checkboxes'
 class Sire extends Component {
     constructor(props) {
         super(props);
-        this.search = this.search.bind(this);
+        this.search = this.search.bind(this)
     }
 
 
     generateCards(kittyData) {
         let cards = kittyData.map((kitty) => {
-            return <ResultCard ckData={kitty} />
+            return <ResultCard ckData={kitty} key={`card-${kitty.id}-sire`} />
         })
 
         this.props.dispatch(setCards(cards))
@@ -55,13 +53,14 @@ class Sire extends Component {
                             toggleGeneration={toggleGeneration}
                             setInitialToggle={setInitialToggle}
                             
+                            page='sire'
+
                             />
         this.props.dispatch(setCheckboxes(checkboxes))
     }
 
 
     search(page) {
-        console.log("true or false", (page % 1) > -1)
         this.resultsHeading.scrollIntoView()
 
         this.props.dispatch(setCardAnimation('outro'))
@@ -70,7 +69,7 @@ class Sire extends Component {
         let checkboxes = this.props.searchValues
         let offset
 
-        console.log("############### searchValues", this.props.searchValues)
+        // console.log("############### searchValues", this.props.searchValues)
         checkboxes.forEach((checkbox) => {
             if (checkbox.value) {
                 searchText.push(checkbox.searchText)
@@ -79,11 +78,11 @@ class Sire extends Component {
 
         let searchString = searchText.join('+')
 
-        console.log("################## searchString #########", searchString)
-        if ((page % 1) > -1) {
+        // console.log("################## searchString #########", searchString)
+        if (page) {
             offset = (page * 20) - 20
-            console.log("page", page)
-            console.log("offset", offset)
+            // console.log("page", page)
+            // console.log("offset", offset)
         } else {
             offset = null
             page = 1
@@ -93,13 +92,13 @@ class Sire extends Component {
 
         this.props.dispatch(getCatIds(offset, searchString, sort))
         this.props.dispatch(setSirePageNumber(page))
-
     }
 
+
     handleCheckbox = (e) => {
-        console.log(e.currentTarget.value)
-        console.log(e.currentTarget.name)
-        console.log(e.currentTarget.type)
+        // console.log(e.currentTarget.value)
+        // console.log(e.currentTarget.name)
+        // console.log(e.currentTarget.type)
 
         // the search text
         let inputValue = e.currentTarget.value
@@ -111,22 +110,21 @@ class Sire extends Component {
         let inputType = e.currentTarget.type
 
         this.props.dispatch(toggleSearchValue(inputValue, inputName, inputType))
-
     }
 
 
     handleSort = (e) => {
-        console.log("############ sort value #########", e.currentTarget.value)
+        // console.log("############ sort value #########", e.currentTarget.value)
         this.props.dispatch(setSort(e.currentTarget.value))
-
     }
+
 
     componentWillMount() {
         this.props.dispatch(setActive('sire'))
     }
 
-    componentDidMount() {
 
+    componentDidMount() {
         // this does the initial search before any inputs are selected
         if (this.props.ckData.length === 0) {
             this.props.dispatch(getCatIds())
@@ -134,40 +132,38 @@ class Sire extends Component {
 
         // this generates the initial checkboxes after getAllCattributes() from
         // BaseLayout has set the searchValues
-        if (this.props.searchValues.length != 0) {
+        if (this.props.searchValues.length !== 0) {
             this.generateCheckboxes(this.props.searchValues)
 
         }
-
     }
 
-    componentWillUnmount() {
 
+    componentWillUnmount() {
         // this keeps track of if the component has loaded before
         // so the intro animation for the search inputs only
         // plays once
         if (this.props.initialLoad) {
             this.props.dispatch(setInitialLoad())
         }
-
     }
 
-    componentWillReceiveProps(nextProps) {
 
+    componentWillReceiveProps(nextProps) {
         // when ckData updates generate new cards
-        if (this.props.ckData != nextProps.ckData) {
+        if (this.props.ckData !== nextProps.ckData) {
             this.generateCards(nextProps.ckData)
         }
 
         // to make the radio inputs act more like checkboxes (being able to uncheck them)
         // new checkboxes have to be generated after every input/change in searchValues
-        if (this.props.searchValues != nextProps.searchValues) {
+        if (this.props.searchValues !== nextProps.searchValues) {
             this.generateCheckboxes(nextProps.searchValues)
         }
 
         // when new cards have been generated make them visible on the page
         // by setting the card animation to intro
-        if (this.props.cards != nextProps.cards) {
+        if (this.props.cards !== nextProps.cards) {
             this.props.dispatch(setCardAnimation('not-visible'))
             setTimeout(() => {this.props.dispatch(setCardAnimation('intro'))}, 250)
         }
@@ -192,7 +188,7 @@ class Sire extends Component {
         return (
             <div>
                 <h4 className='center-align page-heading animated flipInY'><u>Sire</u></h4>
-                {this.props.searchValues.length != 0 &&
+                {this.props.searchValues.length !== 0 &&
                     <Row className={checkboxClass}>
                         {this.props.checkboxes}
                     </Row>
@@ -242,4 +238,5 @@ function mapStateToProps(appState) {
     }
 }
 
-export default connect(mapStateToProps)(Sire);
+
+export default connect(mapStateToProps)(Sire)

@@ -110,7 +110,7 @@ function getCatIds(offset, searchText, sort) {
             url = url + `&${sort}`
         }
 
-        console.log(url)
+        // console.log(url)
 
         return fetch(url)
             .then(
@@ -125,7 +125,7 @@ function getCatIds(offset, searchText, sort) {
                 // We can dispatch many times!
                 // Here, we update the app state with the results of the API call.
 
-                console.log('################# data returned', j);
+                // console.log('################# data returned', j);
 
                 let ids = []
 
@@ -205,5 +205,4 @@ module.exports = {
     setSort,
     setActive,
     setResultsChanged
-
 }

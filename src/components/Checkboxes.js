@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Input, Icon, Button } from 'react-materialize'
-import { connect } from 'react-redux'
 import GenerationSelect from './GenerationSelect'
 import Sort from './Sort'
 
@@ -90,14 +89,14 @@ class Checkboxes extends Component {
         ]
 
         searchInputData.forEach((category, index) => {
-            let heading = <div className='col s12 m12 l12 xl12'><h5><Icon left={true} className='icon-margin' small>{category.icon}</Icon>{category.heading}</h5></div>
+            let heading = <div className='col s12 m12 l12 xl12' key={`checkbox-heading-${category.heading}-${this.props.page}`}><h5><Icon left={true} className='icon-margin' small>{category.icon}</Icon>{category.heading}</h5></div>
             checkboxes.push(heading)
             category.inputs.forEach((input, checkboxIndex) => {
 
-                let nextInput = <div className='col checkbox-col'><Input name={input.type} type={category.inputType} onClick={this.props.handleCheckbox} value={input.searchText} label={input.text} /></div>
+                let nextInput = <div className='col checkbox-col' key={`checkbox-${input.searchText}-${this.props.page}`}><Input name={input.type} type={category.inputType} onClick={this.props.handleCheckbox} value={input.searchText} label={input.text} /></div>
 
                 if (input.value) {
-                    nextInput = <div className='col checkbox-col'><Input name={input.type} type={category.inputType} onClick={this.props.handleCheckbox} value={input.searchText} label={input.text} checked /></div>
+                    nextInput = <div className='col checkbox-col' key={`checkbox-${input.searchText}-${this.props.page}`}><Input name={input.type} type={category.inputType} onClick={this.props.handleCheckbox} value={input.searchText} label={input.text} checked /></div>
 
                 }
                 checkboxes.push(nextInput)
@@ -105,24 +104,26 @@ class Checkboxes extends Component {
 
         })
 
-        let sortHeading = <div className='col s12 m12 l12 xl12'><h5><Icon left={true} className='icon-margin' small>view_comfy</Icon>Sort</h5></div>
+        let sortHeading = <div className='col s12 m12 l12 xl12' key={`sort-heading-${this.props.page}`}><h5><Icon left={true} className='icon-margin' small>view_comfy</Icon>Sort</h5></div>
         checkboxes.push(sortHeading)
 
-        let sort = <Sort handleSort={this.props.handleSort} />
+        let sort = <Sort handleSort={this.props.handleSort} key={`sort-${this.props.page}`} />
 
         checkboxes.push(sort)
 
-        let generationHeading = <div className='col s12 m12 l12 xl12'><h5><Icon left={true} className='icon-margin' small>line_style</Icon>Generation</h5></div>
+        let generationHeading = <div className='col s12 m12 l12 xl12' key={`generation-heading-${this.props.page}`}><h5><Icon left={true} className='icon-margin' small>line_style</Icon>Generation</h5></div>
         checkboxes.push(generationHeading)
 
         let generationSearch = <GenerationSelect
             setGeneration={this.props.setGeneration}
             toggleGeneration={this.props.toggleGeneration}
             setInitialToggle={this.props.setInitialToggle}
+
+            key={`genration-${this.props.page}`}
         />
         checkboxes.push(generationSearch)
 
-        let searchButton = <div className='col s12 m12 l12 xl12'><Button className='mt-3 red lighten-2' value='1' onClick={this.props.search} waves='light'>Search</Button></div>
+        let searchButton = <div className='col s12 m12 l12 xl12' key={`search-${this.props.page}`}><Button className='mt-3 red lighten-2' value='1' onClick={() => {this.props.search(1)}} waves='light'>Search</Button></div>
         checkboxes.push(searchButton)
 
         return checkboxes

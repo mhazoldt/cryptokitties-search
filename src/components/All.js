@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Row, Button, Icon, Input } from 'react-materialize'
+import { Row } from 'react-materialize'
 
 import {
     getCatIds,
@@ -19,8 +19,6 @@ import {
 } from '../redux/all/actionCreators'
 
 import ResultCard from './ResultCard'
-import GenerationSelect from './GenerationSelect'
-import Sort from './Sort'
 import Results from './Results'
 import ResultsPagination from './ResultsPagination'
 import LoadingCircle from './LoadingCircle'
@@ -31,12 +29,12 @@ class All extends Component {
     constructor(props) {
         super(props);
         this.search = this.search.bind(this);
-
     }
+
 
     generateCards(kittyData) {
         let cards = kittyData.map((kitty) => {
-            return <ResultCard ckData={kitty} />
+            return <ResultCard ckData={kitty} key={`card-${kitty.id}-all`} />
         })
 
         this.props.dispatch(setCards(cards))
@@ -54,6 +52,8 @@ class All extends Component {
                             setGeneration={setGeneration}
                             toggleGeneration={toggleGeneration}
                             setInitialToggle={setInitialToggle}
+
+                            page='all'
                             
                             />
         this.props.dispatch(setCheckboxes(checkboxes))
@@ -61,7 +61,6 @@ class All extends Component {
 
 
     search(page) {
-        console.log("true or false", (page % 1) > -1)
         this.resultsHeading.scrollIntoView()
 
         this.props.dispatch(setCardAnimation('outro'))
@@ -70,7 +69,7 @@ class All extends Component {
         let checkboxes = this.props.searchValues
         let offset
 
-        console.log("############### searchValues", this.props.searchValues)
+        // console.log("############### searchValues", this.props.searchValues)
         checkboxes.forEach((checkbox) => {
             if (checkbox.value) {
                 searchText.push(checkbox.searchText)
@@ -79,11 +78,11 @@ class All extends Component {
 
         let searchString = searchText.join('+')
 
-        console.log("################## searchString #########", searchString)
-        if ((page % 1) > -1) {
+        // console.log("################## searchString #########", searchString)
+        if (page) {
             offset = (page * 20) - 20
-            console.log("page", page)
-            console.log("offset", offset)
+            // console.log("page", page)
+            // console.log("offset", offset)
         } else {
             offset = null
             page = 1
@@ -93,13 +92,13 @@ class All extends Component {
 
         this.props.dispatch(getCatIds(offset, searchString, sort))
         this.props.dispatch(setAllPageNumber(page))
-
     }
 
+
     handleCheckbox = (e) => {
-        console.log(e.currentTarget.value)
-        console.log(e.currentTarget.name)
-        console.log(e.currentTarget.type)
+        // console.log(e.currentTarget.value)
+        // console.log(e.currentTarget.name)
+        // console.log(e.currentTarget.type)
 
         // the search text
         let inputValue = e.currentTarget.value
@@ -111,16 +110,14 @@ class All extends Component {
         let inputType = e.currentTarget.type
 
         this.props.dispatch(toggleSearchValue(inputValue, inputName, inputType))
-
     }
 
 
     handleSort = (e) => {
-        console.log("############ sort value #########", e.currentTarget.value)
+        // console.log("############ sort value #########", e.currentTarget.value)
         this.props.dispatch(setSort(e.currentTarget.value))
-
-
     }
+
 
     componentWillMount() {
         this.props.dispatch(setActive('all'))
@@ -133,36 +130,33 @@ class All extends Component {
             this.props.dispatch(getCatIds())
         }
 
-        if (this.props.searchValues.length != 0) {
+        if (this.props.searchValues.length !== 0) {
             this.generateCheckboxes(this.props.searchValues)
-
         }
-
     }
+
 
     componentWillUnmount() {
         if (this.props.initialLoad) {
             this.props.dispatch(setInitialLoad())
         }
-
     }
 
-    componentWillReceiveProps(nextProps) {
 
+    componentWillReceiveProps(nextProps) {
         // when ckData updates generate new cards
-        if (this.props.ckData != nextProps.ckData) {
+        if (this.props.ckData !== nextProps.ckData) {
             this.generateCards(nextProps.ckData)
         }
 
-        if (this.props.searchValues != nextProps.searchValues) {
+        if (this.props.searchValues !== nextProps.searchValues) {
             this.generateCheckboxes(nextProps.searchValues)
         }
 
         // when ckData updates generate new cards
-        if (this.props.cards != nextProps.cards) {
+        if (this.props.cards !== nextProps.cards) {
             this.props.dispatch(setCardAnimation('not-visible'))
             setTimeout(() => {this.props.dispatch(setCardAnimation('intro'))}, 250)
-
         }
     }
 
@@ -185,7 +179,7 @@ class All extends Component {
         return (
             <div>
                 <h4 className='center-align page-heading animated flipInY'><u>All</u></h4>
-                {this.props.searchValues.length != 0 &&
+                {this.props.searchValues.length !== 0 &&
                     <Row className={checkboxClass}>
                         {this.props.checkboxes}
                     </Row>
@@ -232,9 +226,8 @@ function mapStateToProps(appState) {
         initialLoad: appState.allPage.initialLoad,
         sort: appState.allPage.sort,
         total: appState.allPage.total
-
     }
-
 }
 
-export default connect(mapStateToProps)(All);
+
+export default connect(mapStateToProps)(All)

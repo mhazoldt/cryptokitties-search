@@ -27,12 +27,13 @@ class ResultCard extends Component {
             kittyBackground = 'white'
         }
 
-        let microEther = ''
+
         let formattedTime
         let displayPrice
         let ethPrice
 
         if (kitty.auction.id) {
+            // eslint-disable-next-line 
             let end_time = parseInt(kitty.auction.end_time)
             let current_time = new Date()
             current_time = current_time.getTime()
@@ -52,12 +53,15 @@ class ResultCard extends Component {
                 formattedTime = ''
 
             } else if (remaining_day > 999) {
+                // eslint-disable-next-line 
                 formattedTime = addCommas(parseInt(remaining_year)) + 'y'
 
             } else if (remaining_hours > 24) {
+                // eslint-disable-next-line 
                 formattedTime = addCommas(parseInt(remaining_day)) + 'd ' + parseInt(hours_remainder).toString() + 'h'
 
             } else {
+                // eslint-disable-next-line 
                 formattedTime = parseInt(remaining_hours).toString() + 'h'
             }
 
@@ -70,22 +74,29 @@ class ResultCard extends Component {
             let megaEther_price = current_price / 1000000000000000000000000
             let ether_price = current_price / 1000000000000000000
             let microEther_price = current_price / 1000000000000
-            let significant_price = current_price / 100000000000000
+            // let significant_price = current_price / 100000000000000
 
-
+            // eslint-disable-next-line 
             let priceUSD = parseInt(ether_price * this.props.ethPrice)
 
             if (priceUSD > 999999) {
+                // eslint-disable-next-line 
                 priceUSD = `$${addCommas(parseInt(priceUSD / 1000000))}million`
             } else {
                 priceUSD = `$${addCommas(priceUSD)}`
             }
 
+            // eslint-disable-next-line 
             petaEther_price = parseInt(petaEther_price)
+            // eslint-disable-next-line 
             teraEther_price = parseInt(teraEther_price)
+            // eslint-disable-next-line 
             gigaEther_price = parseInt(gigaEther_price)
+            // eslint-disable-next-line 
             megaEther_price = parseInt(megaEther_price)
+            // eslint-disable-next-line 
             ether_price = parseInt(ether_price)
+            // eslint-disable-next-line 
             microEther_price = parseInt(microEther_price)
 
             // console.log("price_data", current_price)
@@ -99,26 +110,28 @@ class ResultCard extends Component {
 
             let priceIcon
 
-
             if (kitty.auction.type === 'sale') {
                 priceIcon = 'local_offer'
             } else if (kitty.auction.type === 'sire') {
                 priceIcon = 'child_friendly'
             }
 
-            if (gigaEther_price > 999999) {
+            if (teraEther_price > 999999) {
                 displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(petaEther_price) + 'p'}</span>
-                console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
+                // console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
+            } else if (gigaEther_price > 999999) {
+                displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(teraEther_price) + 't'}</span>
+                // console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
             } else if (megaEther_price > 999999) {
                 displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(gigaEther_price) + 'g'}</span>
-                console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
+                // console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
             } else if (ether_price > 999999) {
                 displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{addCommas(megaEther_price) + 'm'}</span>
-                console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
+                // console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
             } else if (microEther_price > 999999) {
                 ethPrice = 'price: ' + addCommas(ether_price) + 'eth'
                 displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{priceUSD}</span>
-                console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
+                // console.log("######>>>>>>>> PRICE ADJUSTMENT", displayPrice)
             } else {
                 ethPrice = 'price: ' + addCommas(microEther_price) + 'μ'
                 displayPrice = <span><i className="material-icons mr-1">{priceIcon}</i>{priceUSD}</span>
@@ -246,7 +259,7 @@ class ResultCard extends Component {
 
                 {this.props.cardAnimation === 'intro' &&
 
-                    <Card className='hoverable animated bounceInRight' style={{ backgroundColor: kittyBackground }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p><p>created: {created_at}</p><p>{ethPrice}</p></div>} key={kitty.id}>
+                    <Card className='hoverable animated bounceInRight' style={{ backgroundColor: kittyBackground }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p><p>created: {created_at}</p><p>{ethPrice}</p></div>}>
                         <Collection>
                             <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'> {cat.color1} {percent.color1}</span></CollectionItem>
                             <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'> {cat.color2} {percent.color2}</span></CollectionItem>
@@ -265,7 +278,7 @@ class ResultCard extends Component {
                 }
                 {this.props.cardAnimation === 'outro' &&
 
-                    <Card className='hoverable animated bounceOutLeft' style={{ backgroundColor: kittyBackground }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p>created: {created_at}</div>} key={kitty.id}>
+                    <Card className='hoverable animated bounceOutLeft' style={{ backgroundColor: kittyBackground }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p>created: {created_at}</div>}>
                         <Collection>
                             <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'>{cat.color1}</span></CollectionItem>
                             <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'> {cat.color2} </span></CollectionItem>
@@ -284,7 +297,7 @@ class ResultCard extends Component {
                 }
                 {this.props.cardAnimation === 'not-visible' &&
 
-                    <Card className='hoverable animated bounceOutLeft' style={{ backgroundColor: kittyBackground, visibility: 'hidden' }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p>created: {created_at}</div>} key={kitty.id}>
+                    <Card className='hoverable animated bounceOutLeft' style={{ backgroundColor: kittyBackground, visibility: 'hidden' }} header={cardHeader} reveal={<div><h4>Bio</h4><p>{kitty.bio}</p>created: {created_at}</div>}>
                         <Collection>
                             <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'>{cat.color1}</span></CollectionItem>
                             <CollectionItem className='truncate' style={{ backgroundColor: kittyBackground, color: cardTextColor }}> <Icon left={true} className='icon-margin'>color_lens</Icon> <span className='cattribute-text'> {cat.color2} </span></CollectionItem>

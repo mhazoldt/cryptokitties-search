@@ -19,7 +19,7 @@ class GenerationSelect extends Component {
 
     render() {
 
-        console.log("initialToggle", this.props.initialToggle)
+        // console.log("initialToggle", this.props.initialToggle)
         return (
             <div className='col s12 m12 l12 xl12'>
                 <div className='pl-3'>
