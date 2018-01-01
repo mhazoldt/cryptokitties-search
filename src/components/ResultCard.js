@@ -242,7 +242,7 @@ class ResultCard extends Component {
 
 
         return (
-            <div className='col s12 m6 l4 xl3'>
+            <div className='col card-col'>
 
                 {this.props.cardAnimation === 'intro' &&
 

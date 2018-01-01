@@ -33,8 +33,13 @@
 }
 
 .checkbox-col {
-  width: calc(100%/5)
+  width: calc(100%)
 }
+
+.card-col {
+  width: calc(100%)
+}
+
 
 .search-width {
   width: 100%;
@@ -98,6 +103,10 @@ ul.collection {
 
   .checkbox-col {
     width: calc(100%/2)
+  }
+
+  .card-col {
+    width: calc(100%)
   }
 
 }
@@ -186,6 +195,10 @@ ul.collection {
     margin-top: -10px;
   }
 
+  .card-col {
+    width: calc(100%/2)
+  }
+
 }
 
 
@@ -245,6 +258,10 @@ ul.collection {
     margin-top: -10px;
   }
 
+  .card-col {
+    width: calc(100%/3)
+  }
+
 }
 
 
@@ -270,7 +287,7 @@ ul.collection {
 
   .image-text-positioning {
     height: 110%;
-    margin-top: -10px;
+    margin-top: -20px;
   }
 
   .checkbox-col {
@@ -287,7 +304,7 @@ ul.collection {
   }
 
   .image-text {
-    font-size: large;
+    font-size: x-large;
   }
 
   .name-font {
@@ -301,7 +318,7 @@ ul.collection {
 
   .image-text-positioning {
     height: 110%;
-    margin-top: -10px;
+    margin-top: -20px;
   }
 
   .search-width {
@@ -492,6 +509,13 @@ ul.collection {
   }
 
 }
+
+@media only screen and (min-width: 1350px) {
+  .card-col {
+    width: calc(100%/4)
+  }
+}
+
 
 
 

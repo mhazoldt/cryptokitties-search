@@ -320,7 +320,7 @@ class All extends Component {
                         <ResultsPagination startSearch={this.search} />
                     }
 
-                    <div className='row' id='cardRow' ref={this.saveElement}>
+                    <div className='row'>
                         {this.props.cards}
                     </div>
 
