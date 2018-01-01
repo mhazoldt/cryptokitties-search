@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardTitle, Collection, CollectionItem, Icon, Input } from 'react-materialize'
+import { Input } from 'react-materialize'
 import { connect } from 'react-redux'
 
 

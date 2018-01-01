@@ -1,6 +1,4 @@
 
-
-
 function baseLayout(state = [], action) {
     switch (action.type) {
 
@@ -17,7 +15,7 @@ function baseLayout(state = [], action) {
             let total = action.total
 
             cattributes = action.allCattributes.map((cattribute) => {
-                return { description: cattribute.description, type: cattribute.type, percent: parseInt((cattribute.total / total) * 100) }
+                return { description: cattribute.description, type: cattribute.type, percent: parseInt((cattribute.total / total) * 100, 10) }
             })
 
             let newState = Object.assign({}, state, {

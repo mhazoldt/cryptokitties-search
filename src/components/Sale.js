@@ -32,6 +32,7 @@ class Sale extends Component {
 
     }
 
+    
     generateCards(kittyData) {
         let cards = kittyData.map((kitty) => {
             return <ResultCard ckData={kitty} />
@@ -220,8 +221,6 @@ class Sale extends Component {
     handleSort = (e) => {
         console.log("############ sort value #########", e.currentTarget.value)
         this.props.dispatch(setSort(e.currentTarget.value))
-
-
     }
 
     componentWillMount() {
@@ -230,11 +229,14 @@ class Sale extends Component {
 
 
     componentDidMount() {
-        console.log(this.props.ckData)
+
+        // this does the initial search before any inputs are selected
         if (this.props.ckData.length === 0) {
             this.props.dispatch(getCatIds())
         }
 
+        // this generates the initial checkboxes after getAllCattributes() from
+        // BaseLayout has set the searchValues
         if (this.props.searchValues.length != 0) {
             this.generateCheckboxes(this.props.searchValues)
 
@@ -244,6 +246,10 @@ class Sale extends Component {
 
 
     componentWillUnmount() {
+
+        // this keeps track of if the component has loaded before
+        // so the intro animation for the search inputs only
+        // plays once
         if (this.props.initialLoad) {
             this.props.dispatch(setInitialLoad())
         }
@@ -258,11 +264,14 @@ class Sale extends Component {
             this.generateCards(nextProps.ckData)
         }
 
+        // to make the radio inputs act more like checkboxes (being able to uncheck them)
+        // new checkboxes have to be generated after every input/change in searchValues
         if (this.props.searchValues != nextProps.searchValues) {
             this.generateCheckboxes(nextProps.searchValues)
         }
 
-        // when ckData updates generate new cards
+        // when new cards have been generated make them visible on the page
+        // by setting the card animation to intro
         if (this.props.cards != nextProps.cards) {
             this.props.dispatch(setCardAnimation('intro'))
         }
@@ -296,14 +305,14 @@ class Sale extends Component {
 
                     <div className='center-align mt-4 pt-4 animated fadeIn' style={{ minHeight: '100vh' }}>
 
-                        <div class="preloader-wrapper big active">
-                            <div class="spinner-layer spinner-blue">
-                                <div class="circle-clipper left">
-                                    <div class="circle"></div>
-                                </div><div class="gap-patch">
-                                    <div class="circle"></div>
-                                </div><div class="circle-clipper right">
-                                    <div class="circle"></div>
+                        <div className="preloader-wrapper big active">
+                            <div className="spinner-layer spinner-blue">
+                                <div className="circle-clipper left">
+                                    <div className="circle"></div>
+                                </div><div className="gap-patch">
+                                    <div className="circle"></div>
+                                </div><div className="circle-clipper right">
+                                    <div className="circle"></div>
                                 </div>
                             </div>
                         </div>
@@ -339,18 +348,11 @@ class Sale extends Component {
 
 function mapStateToProps(appState) {
     return {
-        isFetchingSalesIds: appState.salesPage.isFetchingSalesIds,
-        salesIds: appState.salesPage.salesIds,
-        isFetchingCkData: appState.salesPage.isFetchingCkData,
         ckData: appState.salesPage.ckData,
         cards: appState.salesPage.cards,
         salesPageNumber: appState.salesPage.salesPageNumber,
-        isFetching: appState.salesPage.isFetching,
-        allCattributes: appState.baseLayout.allCattributes,
         checkboxes: appState.salesPage.checkboxes,
         searchValues: appState.salesPage.searchValues,
-        cardAnimation: appState.salesPage.cardAnimation,
-        generation: appState.salesPage.generation,
         initialLoad: appState.salesPage.initialLoad,
         sort: appState.salesPage.sort,
         total: appState.salesPage.total

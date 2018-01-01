@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Row, Button, Icon, Pagination, Input } from 'react-materialize'
+import { Row, Button, Icon, Input } from 'react-materialize'
 
 import {
     getCatIds,
     setCards,
     setAllPageNumber,
-    getAllCattributes,
     setCheckboxes,
-    setSearchValues,
     toggleSearchValue,
     setCardAnimation,
     setGeneration,
@@ -339,19 +337,11 @@ class All extends Component {
 
 function mapStateToProps(appState) {
     return {
-        isFetchingAllIds: appState.allPage.isFetchingAllIds,
-        allIds: appState.allPage.allIds,
-        isFetchingCkData: appState.allPage.isFetchingCkData,
         ckData: appState.allPage.ckData,
         cards: appState.allPage.cards,
         allPageNumber: appState.allPage.allPageNumber,
-        isFetching: appState.allPage.isFetching,
-        isFetchingAllCattributes: appState.allPage.isFetchingAllCattributes,
-        allCattributes: appState.allPage.allCattributes,
         checkboxes: appState.allPage.checkboxes,
         searchValues: appState.allPage.searchValues,
-        cardAnimation: appState.allPage.cardAnimation,
-        generation: appState.allPage.generation,
         initialLoad: appState.allPage.initialLoad,
         sort: appState.allPage.sort,
         total: appState.allPage.total

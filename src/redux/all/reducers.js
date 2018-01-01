@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
 function allPage(state = [], action) {
@@ -211,23 +211,6 @@ function allPage(state = [], action) {
         case 'FETCH_COMPLETE_ALL': {
             let newState = Object.assign({}, state, {
                 isFetching: false,
-
-            })
-            
-            return newState
-        }
-        case 'STARTING_FETCH_ALL_CATTRIBUTES_ALL': {
-            let newState = Object.assign({}, state, {
-                isFetchingAllCattributes: true
-                
-            })
-            
-            return newState
-        }
-        case 'FETCH_COMPLETE_ALL_CATTRIBUTES_ALL': {
-            let newState = Object.assign({}, state, {
-                isFetchingAllCattributes: false,
-                allCattributes: action.allCattributes
 
             })
             

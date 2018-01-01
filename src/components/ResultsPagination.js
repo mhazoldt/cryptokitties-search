@@ -1,19 +1,15 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Row, Button, Icon, Pagination, Input } from 'react-materialize'
+import { Pagination } from 'react-materialize'
 
 
 class ResultsPagination extends Component {
 
-
     render() {
-
-
-        console.log("alsfjlaskdjf;lkasjd;flkajs;ldkfja;lskdjf;alksdjf", this.props.initialToggle)
         return (
             <div className='mb-4 animated fadeIn' style={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
-                <span><Pagination items={parseInt(this.props.total / 20) + 1} activePage={this.props.pageNumber} maxButtons={5} onSelect={this.props.startSearch} /></span>
+                <span><Pagination items={parseInt(this.props.total / 20, 10) + 1} activePage={this.props.pageNumber} maxButtons={5} onSelect={this.props.startSearch} /></span>
             </div>
 
         )

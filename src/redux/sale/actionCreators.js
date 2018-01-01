@@ -47,14 +47,6 @@ function setCardAnimation(animation) {
     return { type: 'SET_CARD_ANIMATION', animation: animation }
 }
 
-function startingFetchAllCattributes() {
-    return { type: 'STARTING_FETCH_ALL_CATTRIBUTES' }
-}
-
-function fetchCompleteAllCattributes(allCattributes) {
-    return { type: 'FETCH_COMPLETE_ALL_CATTRIBUTES', allCattributes: allCattributes }
-}
-
 function setGeneration(change) {
     return { type: 'SET_GENERATION', change: change }
 }
@@ -198,52 +190,10 @@ function getCkData(ids) {
 }
 
 
-function getAllCattributes() {
-    // Thunk middleware knows how to handle functions.
-    // It passes the dispatch method as an argument to the function,
-    // thus making it able to dispatch actions itself.
-
-    return function (dispatch) {
-        // First dispatch: the app state is updated to inform
-        // that the API call is starting.
-
-        dispatch(startingFetchAllCattributes())
-
-        // The function called by the thunk middleware can return a value,
-        // that is passed on as the return value of the dispatch method.
-
-        // In this case, we return a promise to wait for.
-        // This is not required by thunk middleware, but it is convenient for us.
-
-        let url = 'https://api.cryptokitties.co/cattributes?total=true'
-        
-        return fetch(url)
-            .then(
-            response => response.json(),
-            // Do not use catch, because that will also catch
-            // any errors in the dispatch and resulting render,
-            // causing a loop of 'Unexpected batch number' errors.
-            // https://github.com/facebook/react/issues/6895
-            error => console.log('An error occurred.', error)
-            )
-            .then(j => {
-                // We can dispatch many times!
-                // Here, we update the app state with the results of the API call.
-
-                // console.log(j);
-
-                dispatch(fetchCompleteAllCattributes(j))
-                
-            })
-    }
-}
-
-
 module.exports = { 
     getCatIds,
     setCards,
     setSalesPageNumber,
-    getAllCattributes,
     setCheckboxes,
     toggleSearchValue,
     setSearchValues,

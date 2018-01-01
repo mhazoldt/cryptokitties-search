@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
 function salesPage(state = [], action) {
@@ -216,23 +216,6 @@ function salesPage(state = [], action) {
             
             return newState
         }
-        case 'STARTING_FETCH_ALL_CATTRIBUTES': {
-            let newState = Object.assign({}, state, {
-                isFetchingAllCattributes: true
-                
-            })
-            
-            return newState
-        }
-        case 'FETCH_COMPLETE_ALL_CATTRIBUTES': {
-            let newState = Object.assign({}, state, {
-                isFetchingAllCattributes: false,
-                allCattributes: action.allCattributes
-
-            })
-            
-            return newState
-        }
         case 'FETCH_COMPLETE_ALL_CATTRIBUTES_B': {
             let cattributes = []
             let total = action.total
@@ -263,8 +246,6 @@ function salesPage(state = [], action) {
             })
 
             searchValues.push({ text: 'generation', searchText: `gen:${state.generation}`, value: false, type: 'generation' })
-
-
 
 
             let newState = Object.assign({}, state, {

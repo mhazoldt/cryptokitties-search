@@ -1,11 +1,9 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-// import { setGeneration, toggleGeneration, setInitialToggle } from '../redux/sale/actionCreators'
-import { Input } from 'react-materialize'
+
 
 class GenerationSelect extends Component {
-
 
     handleToggle = () => {
 
@@ -21,8 +19,7 @@ class GenerationSelect extends Component {
 
     render() {
 
-
-        console.log("alsfjlaskdjf;lkasjd;flkajs;ldkfja;lskdjf;alksdjf", this.props.initialToggle)
+        console.log("initialToggle", this.props.initialToggle)
         return (
             <div className='col s12 m12 l12 xl12'>
                 <div className='pl-3'>

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { Row, Button, Icon, Pagination, Input } from 'react-materialize'
+import { Row, Button, Icon, Input } from 'react-materialize'
 
 import {
     getCatIds,
     setCards,
     setSirePageNumber,
-    getAllCattributes,
     setCheckboxes,
     toggleSearchValue,
     setCardAnimation,
@@ -31,6 +30,7 @@ class Sire extends Component {
         super(props);
         this.search = this.search.bind(this);
     }
+
 
     generateCards(kittyData) {
         let cards = kittyData.map((kitty) => {
@@ -228,20 +228,26 @@ class Sire extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.ckData)
+
+        // this does the initial search before any inputs are selected
         if (this.props.ckData.length === 0) {
             this.props.dispatch(getCatIds())
         }
 
+        // this generates the initial checkboxes after getAllCattributes() from
+        // BaseLayout has set the searchValues
         if (this.props.searchValues.length != 0) {
             this.generateCheckboxes(this.props.searchValues)
 
         }
 
-
     }
 
     componentWillUnmount() {
+
+        // this keeps track of if the component has loaded before
+        // so the intro animation for the search inputs only
+        // plays once
         if (this.props.initialLoad) {
             this.props.dispatch(setInitialLoad())
         }
@@ -255,11 +261,14 @@ class Sire extends Component {
             this.generateCards(nextProps.ckData)
         }
 
+        // to make the radio inputs act more like checkboxes (being able to uncheck them)
+        // new checkboxes have to be generated after every input/change in searchValues
         if (this.props.searchValues != nextProps.searchValues) {
             this.generateCheckboxes(nextProps.searchValues)
         }
 
-        // when ckData updates generate new cards
+        // when new cards have been generated make them visible on the page
+        // by setting the card animation to intro
         if (this.props.cards != nextProps.cards) {
             this.props.dispatch(setCardAnimation('intro'))
         }
@@ -337,25 +346,15 @@ class Sire extends Component {
 
 function mapStateToProps(appState) {
     return {
-        isFetchingSireIds: appState.sirePage.isFetchingSalesIds,
-        sireIds: appState.sirePage.sireIds,
-        isFetchingCkData: appState.sirePage.isFetchingCkData,
         ckData: appState.sirePage.ckData,
         cards: appState.sirePage.cards,
         sirePageNumber: appState.sirePage.salesPageNumber,
-        isFetching: appState.sirePage.isFetching,
-        isFetchingAllCattributes: appState.sirePage.isFetchingAllCattributes,
-        allCattributes: appState.baseLayout.allCattributes,
         checkboxes: appState.sirePage.checkboxes,
         searchValues: appState.sirePage.searchValues,
-        cardAnimation: appState.sirePage.cardAnimation,
-        generation: appState.sirePage.generation,
         initialLoad: appState.sirePage.initialLoad,
         sort: appState.sirePage.sort,
         total: appState.sirePage.total
-
     }
-
 }
 
 export default connect(mapStateToProps)(Sire);

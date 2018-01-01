@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Input } from 'react-materialize'
 import { connect } from 'react-redux'
 
 
