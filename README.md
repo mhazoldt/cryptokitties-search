@@ -1,8 +1,6 @@
 ## CryptoKitties-Search
 This is a React/Redux front end for conveniently searching for CryptoKitties by pushing buttons.
 
-You can view the site on bitballoon [here](http://cryptokitties-search.bitballoon.com/).
-
 ## Libraries Used
 
 - [React](https://reactjs.org/) to dynamically load content with performance optimizations.
